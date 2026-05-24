@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
-export class Futbolista {
+export class Futbolistas {
   @Prop()
   nombre: string;
 
@@ -15,4 +15,4 @@ export class Futbolista {
   pais: string;
 }
 
-export const FutbolistaSchema = SchemaFactory.createForClass(Futbolista);
+export const FutbolistaSchema = SchemaFactory.createForClass(Futbolistas);
