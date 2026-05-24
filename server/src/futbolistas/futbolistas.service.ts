@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFutbolistaDto } from './dto/create-futbolista.dto';
 import { UpdateFutbolistaDto } from './dto/update-futbolista.dto';
-import { Futbolista } from './entities/futbolista.entity';
+import { Futbolistas } from './entities/futbolista.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class FutbolistasService {
   constructor(
-    @InjectModel('Futbolistas') private FutbolistaModel: Model<Futbolista>,
+    @InjectModel('Futbolistas') private FutbolistaModel: Model<Futbolistas>,
   ) {}
 
   async create(createFutbolistaDto: CreateFutbolistaDto) {
