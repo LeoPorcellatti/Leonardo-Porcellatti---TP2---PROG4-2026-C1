@@ -1,34 +1,50 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { CreateAutenticacionDto } from './dto/create-autenticacion.dto';
 import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
+import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
 
 @Controller('autenticacion')
 export class AutenticacionController {
   constructor(private readonly autenticacionService: AutenticacionService) {}
 
-  @Post()
-  create(@Body() createAutenticacionDto: CreateAutenticacionDto) {
-    return this.autenticacionService.create(createAutenticacionDto);
+  @Post('/registro')
+  create(@Body() createUsuarioDto: CreateUsuarioDto) {
+    return this.autenticacionService.registro(createUsuarioDto);
   }
 
-  @Get()
-  findAll() {
-    return this.autenticacionService.findAll();
-  }
+  // @Post('/login'){
+  //   findOne(@Param('email'))
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.autenticacionService.findOne(+id);
-  }
+  // @Get()
+  // findAll() {
+  //   return this.autenticacionService.findAll();
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAutenticacionDto: UpdateAutenticacionDto) {
-    return this.autenticacionService.update(+id, updateAutenticacionDto);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.autenticacionService.findOne(+id);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.autenticacionService.remove(+id);
-  }
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateAutenticacionDto: UpdateAutenticacionDto,
+  // ) {
+  //   return this.autenticacionService.update(+id, updateAutenticacionDto);
+  // }
+
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.autenticacionService.remove(+id);
+  // }
 }
