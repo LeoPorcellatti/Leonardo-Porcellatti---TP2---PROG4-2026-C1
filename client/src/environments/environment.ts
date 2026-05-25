@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: '',
+  apiUrl: 'https://leonardo-porcellatti-tp-2-prog-4-20.vercel.app',
 };
