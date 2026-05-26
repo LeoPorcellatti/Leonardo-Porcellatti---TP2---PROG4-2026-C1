@@ -8,17 +8,21 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
-import { CreateAutenticacionDto } from './dto/create-autenticacion.dto';
-import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
-import { CreateUsuarioDto } from 'src/usuarios/dto/create-usuario.dto';
+import { RegistroUsuarioDTO } from 'src/usuarios/dto/registro-usuario.dto';
+import { LoginUsuarioDTO } from 'src/usuarios/dto/login-usuario.dto';
 
 @Controller('autenticacion')
 export class AutenticacionController {
   constructor(private readonly autenticacionService: AutenticacionService) {}
 
   @Post('/registro')
-  create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return this.autenticacionService.registro(createUsuarioDto);
+  create(@Body() usuario: RegistroUsuarioDTO) {
+    return this.autenticacionService.registro(usuario);
+  }
+
+  @Post('/login')
+  findOne(@Body() usuario: LoginUsuarioDTO) {
+    return this.autenticacionService.login(usuario);
   }
 
   // @Post('/login'){

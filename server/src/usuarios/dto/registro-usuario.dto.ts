@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class CreateUsuarioDto {
+export class RegistroUsuarioDTO {
   @IsString()
   nombre;
 
