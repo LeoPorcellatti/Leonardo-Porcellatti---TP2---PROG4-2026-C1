@@ -3,10 +3,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { Usuario } from '../usuarios/entities/usuario.entity';
 import { compare, hash } from 'bcrypt';
-import { RegistroUsuarioDTO } from 'src/usuarios/dto/registro-usuario.dto';
-import { LoginUsuarioDTO } from 'src/usuarios/dto/login-usuario.dto';
+import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
+import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
 import { sign } from 'jsonwebtoken';
 
 @Injectable()

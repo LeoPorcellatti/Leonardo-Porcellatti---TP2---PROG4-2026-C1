@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
-import { RegistroUsuarioDTO } from 'src/usuarios/dto/registro-usuario.dto';
-import { LoginUsuarioDTO } from 'src/usuarios/dto/login-usuario.dto';
+import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
+import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
 
 @Controller('autenticacion')
 export class AutenticacionController {
