@@ -75,6 +75,7 @@ export class AutenticacionService {
         audience: 'login',
       });
 
+      console.log(jwt);
       return jwt;
     } catch (error) {
       console.log(error);

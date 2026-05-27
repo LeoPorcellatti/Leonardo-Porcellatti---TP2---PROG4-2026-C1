@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
@@ -21,6 +22,7 @@ export class AutenticacionController {
   }
 
   @Post('/login')
+  @HttpCode(200)
   findOne(@Body() usuario: LoginUsuarioDTO) {
     return this.autenticacionService.login(usuario);
   }

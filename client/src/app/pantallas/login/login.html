@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="contenedorLogin">
+  <div class="loginCard">
+    <h1 class="titulo">Login</h1>
+    <form class="formulario" [formGroup]="formulario">
+      <div class="campo">
+        <input
+          type="metodoIngreso"
+          name="metodoIngreso"
+          formControlName="metodoIngreso"
+          placeholder="email / usuario"
+        />
+        @if (
+          formulario.get('metodoIngreso')?.touched &&
+          formulario.get('metodoIngreso')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su email / usuario </small>
+        }
+      </div>
+      <div class="campo">
+        <input type="password" name="password" formControlName="password" placeholder="password" />
+        @if (
+          formulario.get('password')?.touched && formulario.get('password')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su password</small>
+        }
+      </div>
+      <button
+        class="boton"
+        (click)="login(formulario.value.metodoIngreso!, formulario.value.password!)"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+    <div class="accionesSecundarias">
+      <button class="boton" routerLink="/">HOME</button>
+      <button class="boton" routerLink="/registro">REGISTRATE</button>
+    </div>
+  </div>
+</div>
