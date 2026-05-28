@@ -1,1 +1,113 @@
-<p>registro works!</p>
+<div class="contenedorLogin">
+  <div class="loginCard">
+    <h1 class="titulo">Registro</h1>
+    <form class="formulario" [formGroup]="formulario">
+      <div class="campo">
+        <input type="nombre" name="nombre" formControlName="nombre" placeholder="nombre" />
+        @if (formulario.get('nombre')?.touched && formulario.get('nombre')?.getError('required')) {
+          <small class="small-error">Ingrese su nombre</small>
+        }
+      </div>
+      <div class="campo">
+        <input type="apellido" name="apellido" formControlName="apellido" placeholder="apellido" />
+        @if (
+          formulario.get('apellido')?.touched && formulario.get('apellido')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su apellido</small>
+        }
+      </div>
+      <div class="campo">
+        <input type="email" name="email" formControlName="email" placeholder="email" />
+        @if (formulario.get('email')?.touched && formulario.get('email')?.getError('required')) {
+          <small class="small-error">Ingrese su email</small>
+        }
+      </div>
+      <div class="campo">
+        <input
+          type="nombreDeUsuario"
+          name="nombreDeUsuario"
+          formControlName="nombreDeUsuario"
+          placeholder="nombre de usuario"
+        />
+        @if (
+          formulario.get('nombreDeUsuario')?.touched &&
+          formulario.get('nombreDeUsuario')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su nombre de usuario</small>
+        }
+      </div>
+      <div class="campo">
+        <input type="password" name="password" formControlName="password" placeholder="password" />
+        @if (
+          formulario.get('password')?.touched && formulario.get('password')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su password</small>
+        }
+      </div>
+      <div class="campo">
+        <input
+          type="fechaDeNacimiento"
+          name="fechaDeNacimiento"
+          formControlName="fechaDeNacimiento"
+          placeholder="fecha de nacimiento"
+        />
+        @if (
+          formulario.get('fechaDeNacimiento')?.touched &&
+          formulario.get('fechaDeNacimiento')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su fecha de nacimiento</small>
+        }
+      </div>
+      <div class="campo">
+        <input
+          type="descripcion"
+          name="descripcion"
+          formControlName="descripcion"
+          placeholder="descripcion"
+        />
+        @if (
+          formulario.get('descripcion')?.touched &&
+          formulario.get('descripcion')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su descripcion</small>
+        }
+      </div>
+      <div class="campo">
+        <input
+          type="imagenDePerfil"
+          name="imagenDePerfil"
+          formControlName="imagenDePerfil"
+          placeholder="imagen de perfil"
+        />
+        @if (
+          formulario.get('imagenDePerfil')?.touched &&
+          formulario.get('imagenDePerfil')?.getError('required')
+        ) {
+          <small class="small-error">Ingrese su imagen de perfil</small>
+        }
+      </div>
+
+      <button
+        class="boton"
+        (click)="
+          registro(
+            formulario.value.nombre!,
+            formulario.value.apellido!,
+            formulario.value.email!,
+            formulario.value.nombreDeUsuario!,
+            formulario.value.password!,
+            formulario.value.fechaDeNacimiento!,
+            formulario.value.descripcion!,
+            formulario.value.imagenDePerfil!
+          )
+        "
+      >
+        Registrarse
+      </button>
+    </form>
+    <div class="accionesSecundarias">
+      <button class="boton" routerLink="/">HOME</button>
+      <button class="boton" routerLink="/login">INICIAR SESION</button>
+    </div>
+  </div>
+</div>

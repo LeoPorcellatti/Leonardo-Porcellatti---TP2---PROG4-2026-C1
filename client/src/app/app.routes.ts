@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () =>
+      import('./pantallas/publicaciones/publicaciones').then((a) => a.Publicaciones),
+  },
+  {
     path: 'login',
     loadComponent: () => import('./pantallas/login/login').then((a) => a.Login),
   },
