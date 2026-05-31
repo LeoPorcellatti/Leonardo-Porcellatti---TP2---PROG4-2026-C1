@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -75,8 +76,11 @@ export class AutenticacionService {
         audience: 'login',
       });
 
+      const { password, ...usuarioSinPassword } = usuarioLogueado.toObject();
       console.log(jwt);
-      return jwt;
+      console.log(usuarioLogueado);
+
+      return { token: jwt, usuario: usuarioSinPassword };
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException();
