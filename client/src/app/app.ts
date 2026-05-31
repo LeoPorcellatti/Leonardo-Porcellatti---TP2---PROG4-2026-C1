@@ -5,7 +5,7 @@ import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
