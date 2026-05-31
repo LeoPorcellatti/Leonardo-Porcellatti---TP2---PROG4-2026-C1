@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
-import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
+import { CreatePublicacioneDto } from './dto/create-publicaciones.dto';
+import { UpdatePublicacioneDto } from './dto/update-publicaciones.dto';
 
 @Injectable()
 export class PublicacionesService {
