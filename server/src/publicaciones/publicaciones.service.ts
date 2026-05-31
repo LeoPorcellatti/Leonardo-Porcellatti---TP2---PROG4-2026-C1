@@ -37,6 +37,31 @@ export class PublicacionesService {
     }
   }
 
+  async likear(id: string, auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+    const token = auth.replace('Bearer ', '');
+
+    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+    try {
+      const publicacion = await this.PublicacionModel.findById(id);
+
+      if (!publicacion) {
+        throw new UnauthorizedException();
+      }
+
+      await this.PublicacionModel.updateOne(
+        { _id: id },
+        { $addToSet: { meGusta: payload._id } },
+      );
+
+      return { message: 'Publicación likeada' };
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
   findAll() {
     return `This action returns all publicaciones`;
   }

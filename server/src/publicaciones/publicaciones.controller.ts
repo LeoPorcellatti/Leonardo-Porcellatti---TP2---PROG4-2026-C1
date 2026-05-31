@@ -26,6 +26,11 @@ export class PublicacionesController {
     return this.publicacionesService.publicar(createPublicacionesDto, auth);
   }
 
+  @Post(':id')
+  likear(@Param('id') id: string, @Headers('authorization') auth: string) {
+    return this.publicacionesService.likear(id, auth);
+  }
+
   @Get()
   findAll() {
     return this.publicacionesService.findAll();
