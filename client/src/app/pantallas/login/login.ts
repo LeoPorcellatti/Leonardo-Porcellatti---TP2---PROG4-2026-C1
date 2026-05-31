@@ -27,18 +27,15 @@ export class Login {
     }
 
     try {
-      const peticion = this.http.post(
-        `${this.apiUrl}/autenticacion/login`,
-        {
-          metodoIngreso: metodoIngreso,
-          password: password,
-        },
-        { responseType: 'text' },
-      );
+      const peticion = this.http.post(`${this.apiUrl}/autenticacion/login`, {
+        metodoIngreso: metodoIngreso,
+        password: password,
+      });
 
-      peticion.subscribe((a) => {
+      peticion.subscribe((a: any) => {
         if (a) {
-          localStorage.setItem('token', a);
+          localStorage.setItem('token', a.token);
+          localStorage.setItem('usuario', JSON.stringify(a.usuario));
           this.router.navigateByUrl('/publicaciones');
         }
       });
