@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -48,7 +49,30 @@ export class PublicacionesService {
     return `This action updates a #${id} publicacione`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} publicacione`;
+  async eliminar(id: string, auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+    const token = auth.replace('Bearer ', '');
+
+    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+    try {
+      const publicacion = await this.PublicacionModel.findById(id);
+
+      if (!publicacion) {
+        throw new UnauthorizedException();
+      }
+
+      if (publicacion.usuario.toString() !== payload._id.toString()) {
+        throw new UnauthorizedException();
+      }
+
+      await this.PublicacionModel.updateOne({ _id: id }, { activo: false });
+      return { message: 'Publicación borrada' };
+    } catch (error) {
+      console.log(error);
+      throw new UnauthorizedException();
+    }
   }
 }

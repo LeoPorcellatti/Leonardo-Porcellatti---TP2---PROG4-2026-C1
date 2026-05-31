@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Controller,
   Get,
@@ -7,7 +9,6 @@ import {
   Param,
   Delete,
   Headers,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service';
 import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
@@ -44,7 +45,7 @@ export class PublicacionesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.publicacionesService.remove(+id);
+  eliminar(@Param('id') id: string, @Headers('authorization') auth: string) {
+    return this.publicacionesService.eliminar(id, auth);
   }
 }
