@@ -28,4 +28,4 @@ export class Publicacion {
   creadoEn: Date;
 }
 
-export const PublicacionesSchema = SchemaFactory.createForClass(Publicacion);
+export const PublicacionSchema = SchemaFactory.createForClass(Publicacion);

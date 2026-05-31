@@ -6,18 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Headers,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service';
-import { CreatePublicacioneDto } from './dto/create-publicaciones.dto';
-import { UpdatePublicacioneDto } from './dto/update-publicaciones.dto';
+import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
+import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 
 @Controller('publicaciones')
 export class PublicacionesController {
   constructor(private readonly publicacionesService: PublicacionesService) {}
 
   @Post()
-  create(@Body() createPublicacioneDto: CreatePublicacioneDto) {
-    return this.publicacionesService.create(createPublicacioneDto);
+  publicar(
+    @Body() createPublicacionesDto: CreatePublicacionesDto,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.publicacionesService.publicar(createPublicacionesDto, auth);
   }
 
   @Get()
@@ -33,9 +38,9 @@ export class PublicacionesController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updatePublicacioneDto: UpdatePublicacioneDto,
+    @Body() updatePublicacionesDto: UpdatePublicacionesDto,
   ) {
-    return this.publicacionesService.update(+id, updatePublicacioneDto);
+    return this.publicacionesService.update(+id, updatePublicacionesDto);
   }
 
   @Delete(':id')

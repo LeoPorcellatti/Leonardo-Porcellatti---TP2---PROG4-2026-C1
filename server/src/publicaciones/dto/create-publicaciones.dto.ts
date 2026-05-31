@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class CreatePublicacioneDto {
+export class CreatePublicacionesDto {
   @IsString()
   titulo: string;
 
