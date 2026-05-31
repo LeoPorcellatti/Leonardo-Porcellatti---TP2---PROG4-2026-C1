@@ -38,6 +38,7 @@ export class Login {
 
       peticion.subscribe((a) => {
         if (a) {
+          localStorage.setItem('token', a);
           this.router.navigateByUrl('/publicaciones');
         }
       });
