@@ -42,6 +42,13 @@
           formulario.get('password')?.touched && formulario.get('password')?.getError('required')
         ) {
           <small class="small-error">Ingrese su password</small>
+        } @else if (
+          formulario.get('password')?.touched &&
+          formulario.get('password')?.getError('passwordInvalida')
+        ) {
+          <small class="small-error"
+            >La password debe tener al menos 8 caracteres, una mayúscula y un número</small
+          >
         }
       </div>
       <div class="campo">
@@ -56,6 +63,21 @@
           formulario.get('fechaDeNacimiento')?.getError('required')
         ) {
           <small class="small-error">Ingrese su fecha de nacimiento</small>
+        } @else if (
+          formulario.get('fechaDeNacimiento')?.touched &&
+          formulario.get('fechaDeNacimiento')?.getError('edadFutura')
+        ) {
+          <small class="small-error">No puedes elegir fechas futuras</small>
+        } @else if (
+          formulario.get('fechaDeNacimiento')?.touched &&
+          formulario.get('fechaDeNacimiento')?.getError('edadMinimaRegistro')
+        ) {
+          <small class="small-error">Debés tener al menos 10 años para registrarte </small>
+        } @else if (
+          formulario.get('fechaDeNacimiento')?.touched &&
+          formulario.get('fechaDeNacimiento')?.getError('edadMaximaRegistro')
+        ) {
+          <small class="small-error">Debés tener máximo 99 años para registrarte </small>
         }
       </div>
       <div class="campo">

@@ -38,7 +38,7 @@ export class Login {
 
       peticion.subscribe((a) => {
         if (a) {
-          this.router.navigateByUrl('/mi-perfil');
+          this.router.navigateByUrl('/publicaciones');
         }
       });
     } catch (error) {

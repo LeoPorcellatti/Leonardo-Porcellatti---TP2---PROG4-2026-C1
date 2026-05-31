@@ -3,6 +3,8 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { passwordValidator } from '../../validators/passwordValidator';
+import { edadValidator } from '../../validators/edadValidator';
 
 @Component({
   selector: 'app-registro',
@@ -20,8 +22,8 @@ export class Registro {
     apellido: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     nombreDeUsuario: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    fechaDeNacimiento: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, passwordValidator]),
+    fechaDeNacimiento: new FormControl('', [Validators.required, edadValidator]),
     descripcion: new FormControl('', Validators.required),
     imagenDePerfil: new FormControl('', Validators.required),
   });
