@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 
 @Schema()
-export class Publicaciones {
+export class Publicacion {
   @Prop({ required: true })
   titulo: string;
 
@@ -28,4 +28,4 @@ export class Publicaciones {
   creadoEn: Date;
 }
 
-export const PublicacionesSchema = SchemaFactory.createForClass(Publicaciones);
+export const PublicacionesSchema = SchemaFactory.createForClass(Publicacion);
