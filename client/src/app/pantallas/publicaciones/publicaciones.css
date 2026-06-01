@@ -1,52 +1,176 @@
 .contenedorPublicaciones {
-  min-height: 100vh;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(57, 255, 138, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.presentacion {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  gap: 60px;
-  flex-wrap: wrap;
+  gap: 4px;
 }
 
-.publicacionesCard {
-  width: 380px;
-  background: rgba(57, 58, 65, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: 25px;
-  backdrop-filter: blur(8px);
-  text-align: center;
+.logo {
+  font-size: 22px;
+  color: #39ff8a;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 1);
+  letter-spacing: 2px;
 }
 
-.titulo {
-  font-family: 'Share Tech Mono', monospace;
-  color: rgba(57, 255, 138, 0.75);
-  margin-bottom: 50px;
+.slogan {
+  display: block;
+  font-size: 12px;
+  color: rgba(57, 255, 138, 0.4);
+  margin-bottom: 16px;
 }
 
-.accionesSecundarias {
+.navAcciones {
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-  gap: 15px;
+  gap: 6px;
 }
 
 .boton {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
   font-family: 'Share Tech Mono', monospace;
-  display: block;
-  margin: 16px auto;
-  padding: 8px 24px;
-  border: 1px solid rgb(57, 255, 138);
-  border-radius: 5px;
+  font-size: 12px;
   cursor: pointer;
   transition: 0.2s;
-  background-color: #0d2140;
-  width: 160px;
-  color: rgba(200, 230, 210, 0.75);
+  display: block;
 }
 
 .boton:hover {
-  background: #0a2818;
-  color: rgb(57, 255, 138);
+  border-color: rgb(57, 255, 138);
+  color: #39ff8a;
+  background: rgb(57, 255, 138, 0.05);
+}
+
+.controles {
+  margin-bottom: 20px;
+}
+
+.selector {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.selector option {
+  background-color: #0d1a2e;
+  color: rgba(200, 230, 210, 0.75);
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagina {
+  font-size: 12px;
+  color: rgba(74, 179, 244, 0.5);
+}
+
+.boton.activo {
+  border-color: rgba(57, 255, 138, 0.6);
+  color: #39ff8a;
+}
+
+.listaPublicaciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.publicacionesCard {
+  background: rgba(10, 30, 20, 0.6);
+  border: 1px solid rgba(57, 255, 138, 0.15);
+  border-left: 2px solid rgba(57, 255, 138, 0.4);
+  padding: 12px 16px;
+}
+
+.publicacionTitulo {
+  font-size: 14px;
+  color: #4ab3f4;
+  margin: 0 0 8px 0;
+}
+
+.publicacionDescripcion {
+  font-size: 12px;
+  color: rgba(200, 230, 210, 0.75);
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+}
+
+.publicacionFecha,
+.publicacionLikes {
+  font-size: 11px;
+  color: rgba(57, 255, 138, 0.5);
+  line-height: 1.6;
+}
+
+.sinPublicaciones {
+  color: rgba(57, 255, 138, 0.3);
+  font-size: 13px;
+}
+
+.modalPublicaciones {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #0d1a2e;
+  border: 1px solid rgba(57, 255, 138, 0.2);
+  padding: 24px;
+  width: 400px;
+}
+
+.modalTitulo {
+  color: #39ff8a;
+  font-size: 16px;
+  margin: 0 0 16px 0;
+}
+
+.campo {
+  margin-bottom: 12px;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  background: rgba(57, 255, 138, 0.15);
+  border: 1px solid rgba(57, 255, 138, 0.15);
+  color: rgba(200, 230, 210, 0.75);
+  padding: 8px 10px;
+  font-family: 'Share Tech Mono' monospace;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.modalAcciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
 }

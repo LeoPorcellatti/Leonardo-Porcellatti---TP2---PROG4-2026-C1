@@ -1,8 +1,70 @@
 <div class="contenedorPublicaciones">
-  <h1 class="titulo">BIENVENIDO A DEAD GAME EXPLORER</h1>
-  <div class="accionesSecundarias">
-    <button class="boton" routerLink="mi-perfil">Mi Perfil</button>
-    <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>
+  <div class="navbar">
+    <div class="presentacion">
+      <span class="logo">DEAD GAME EXPLORER</span>
+      <span class="slogan"> // La nostalgía nos guía._ ></span>
+    </div>
+    <div class="navAcciones">
+      <button class="boton" routerLink="mi-perfil">Mi Perfil</button>
+      <button class="boton" (click)="abrirModal()">Nueva publicación</button>
+      <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>
+    </div>
   </div>
-  <div class="publicacionesCard"></div>
+
+  <div class="controles">
+    <div class="ordenamiento">
+      <select class="selector" [(ngModel)]="orden" (ngModelChange)="cargarPublicaciones()">
+        <option value="fecha">Por Fecha</option>
+        <option value="megusta">Por Me Gusta</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="listaPublicaciones">
+    <!-- @for (publicacion of publicaciones; track publicacion._id) {
+      <app-publicacion-card [publicacion]="publicacion" />
+    }
+    @if (publicaciones.length === 0) {
+      <p class="sinPublicaciones">// No se encontraron publicaciones</p>
+    } -->
+
+    @for (publicacion of publicaciones(); track publicacion._id) {
+      <div class="publicacionesCard">
+        <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
+        <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
+        <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyy' }} </span>
+        <span class="publicacionLikes"> - Likes: {{ publicacion.meGusta.length }} </span>
+      </div>
+    }
+    @if (publicaciones().length === 0) {
+      <p class="sinPublicaciones">// No se encontraron publicaciones</p>
+    }
+  </div>
+
+  <div class="paginacion">
+    <button class="boton" (click)="paginaAnterior()" [disabled]="offset === 0">Anterior</button>
+    <span class="pagina">Página {{ offset / limite + 1 }}</span>
+    <button class="boton" (click)="paginaSiguiente()">Sigiente</button>
+  </div>
+
+  @if (modalAbierto) {
+    <div class="modalPublicaciones" (click)="cerrarModal()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <h2 class="modalTitulo">Nueva publicacion</h2>
+        <div class="campo">
+          <input type="text" placeholder="Título" [(ngModel)]="nuevaPublicacion.titulo" />
+        </div>
+        <div class="campo">
+          <input type="text" placeholder="Descripción" [(ngModel)]="nuevaPublicacion.descripcion" />
+        </div>
+        <div class="campo">
+          <input type="text" placeholder="URL IMAGEN" />
+        </div>
+        <div class="modalAcciones">
+          <button class="boton" (click)="publicar()">Publicar</button>
+          <button class="boton bonton-danger" (click)="cerrarModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>
