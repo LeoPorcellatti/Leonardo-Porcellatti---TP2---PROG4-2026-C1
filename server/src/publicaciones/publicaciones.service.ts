@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -9,6 +11,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Publicacion } from './entities/publicacion.entity';
 import { Model } from 'mongoose';
 import { verify } from 'jsonwebtoken';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 
 @Injectable()
 export class PublicacionesService {
@@ -37,33 +40,35 @@ export class PublicacionesService {
     }
   }
 
-  async likear(id: string, auth: string) {
-    if (!auth) {
-      throw new UnauthorizedException();
-    }
-    const token = auth.replace('Bearer ', '');
-
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+  async listar(
+    orden: string,
+    limite: number,
+    offset: number,
+    usuario?: string,
+  ) {
     try {
-      const publicacion = await this.PublicacionModel.findById(id);
+      const filtro: any = { activo: true };
 
-      if (!publicacion) {
-        throw new UnauthorizedException();
+      if (usuario) {
+        filtro.usuario = usuario;
       }
 
-      await this.PublicacionModel.updateOne(
-        { _id: id },
-        { $addToSet: { meGusta: payload._id } },
-      );
+      const publicaciones = await this.PublicacionModel.aggregate([
+        { $match: filtro },
+        { $addFields: { cantidadMeGusta: { $size: '$meGusta' } } },
+        {
+          $sort:
+            orden === 'megusta' ? { cantidadMeGusta: -1 } : { creadoEn: -1 },
+        },
+        { $skip: Number(offset) || 0 },
+        { $limit: Number(offset) || 3 },
+      ]);
 
-      return { message: 'Publicación likeada' };
+      return publicaciones;
     } catch (error) {
+      console.log(error);
       throw new UnauthorizedException();
     }
-  }
-
-  findAll() {
-    return `This action returns all publicaciones`;
   }
 
   findOne(id: number) {
@@ -97,6 +102,58 @@ export class PublicacionesService {
       return { message: 'Publicación borrada' };
     } catch (error) {
       console.log(error);
+      throw new UnauthorizedException();
+    }
+  }
+
+  async likear(id: string, auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+    const token = auth.replace('Bearer ', '');
+
+    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+    try {
+      const publicacion = await this.PublicacionModel.findById(id);
+
+      if (!publicacion) {
+        throw new UnauthorizedException();
+      }
+
+      await this.PublicacionModel.updateOne(
+        { _id: id },
+        { $addToSet: { meGusta: payload._id } },
+      );
+
+      return { message: 'Publicación likeada' };
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async deslikear(id: string, auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+
+    const token = auth.replace('Bearer ', '');
+
+    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+    try {
+      const publicacion = await this.PublicacionModel.findById(id);
+
+      if (!publicacion) {
+        throw new UnauthorizedException();
+      }
+
+      await this.PublicacionModel.updateOne(
+        { _id: id },
+        { $pull: { meGusta: payload._id } },
+      );
+
+      return { message: 'Publicación dislikeada' };
+    } catch (error) {
       throw new UnauthorizedException();
     }
   }

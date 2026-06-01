@@ -9,6 +9,7 @@ import {
   Param,
   Delete,
   Headers,
+  Query,
 } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service';
 import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
@@ -32,8 +33,13 @@ export class PublicacionesController {
   }
 
   @Get()
-  findAll() {
-    return this.publicacionesService.findAll();
+  listar(
+    @Query('orden') orden: string,
+    @Query('limite') limite: number,
+    @Query('offset') offset: number,
+    @Query('usuario') usuario: string,
+  ) {
+    return this.publicacionesService.listar(orden, limite, offset, usuario);
   }
 
   @Get(':id')
@@ -52,5 +58,10 @@ export class PublicacionesController {
   @Delete(':id')
   eliminar(@Param('id') id: string, @Headers('authorization') auth: string) {
     return this.publicacionesService.eliminar(id, auth);
+  }
+
+  @Delete(':id/dislike')
+  deslikear(@Param('id') id: string, @Headers('authorization') auth: string) {
+    return this.publicacionesService.deslikear(id, auth);
   }
 }
