@@ -3,11 +3,11 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { Publicacion } from '../../publicacion/publicacion';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [FormsModule, RouterLink, DatePipe],
+  imports: [FormsModule, RouterLink, Publicacion],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css',
 })
@@ -65,6 +65,7 @@ export class Publicaciones implements OnInit {
   }
 
   paginaSiguiente() {
+    console.log('paginaSiguiente ejecutado');
     this.offset += this.limite;
     this.cargarPublicaciones();
   }

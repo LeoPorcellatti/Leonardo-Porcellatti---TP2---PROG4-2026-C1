@@ -1,0 +1,29 @@
+@if (publicacion.activo) {
+  <div class="publicacionCard">
+    <div class="publicacionDatos">
+      <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
+      <div class="publicacionCreacion">
+        <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyyy' }} </span>
+      </div>
+    </div>
+
+    <div class="publicacionContenido">
+      <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
+    </div>
+
+    <div class="publicacionAcciones">
+      @if (publicacion.meGusta.includes(usuarioId)) {
+        <button class="botonLike activo" (click)="quitarLike()">Dislikear</button>
+      } @else {
+        <button class="botonLike" (click)="darLike()">Likear</button>
+      }
+      <span class="contadorLike">Likes: {{ publicacion.meGusta.length }}</span>
+
+      <div class="eliminarPublicacion">
+        @if (publicacion.usuario === usuarioId) {
+          <button class="botonEliminar" (click)="eliminar()">Eliminar</button>
+        }
+      </div>
+    </div>
+  </div>
+}

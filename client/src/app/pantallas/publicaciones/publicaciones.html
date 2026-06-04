@@ -21,20 +21,8 @@
   </div>
 
   <div class="listaPublicaciones">
-    <!-- @for (publicacion of publicaciones; track publicacion._id) {
-      <app-publicacion-card [publicacion]="publicacion" />
-    }
-    @if (publicaciones.length === 0) {
-      <p class="sinPublicaciones">// No se encontraron publicaciones</p>
-    } -->
-
-    @for (publicacion of publicaciones(); track publicacion._id) {
-      <div class="publicacionesCard">
-        <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
-        <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
-        <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyy' }} </span>
-        <span class="publicacionLikes"> - Likes: {{ publicacion.meGusta.length }} </span>
-      </div>
+    @for (p of publicaciones(); track p._id) {
+      <app-publicacion [publicacion]="p" />
     }
     @if (publicaciones().length === 0) {
       <p class="sinPublicaciones">// No se encontraron publicaciones</p>
