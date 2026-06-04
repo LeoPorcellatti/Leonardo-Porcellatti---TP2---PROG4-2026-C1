@@ -61,7 +61,7 @@ export class PublicacionesService {
             orden === 'megusta' ? { cantidadMeGusta: -1 } : { creadoEn: -1 },
         },
         { $skip: Number(offset) || 0 },
-        { $limit: Number(offset) || 3 },
+        { $limit: Number(limite) || 5 },
       ]);
 
       return publicaciones;
