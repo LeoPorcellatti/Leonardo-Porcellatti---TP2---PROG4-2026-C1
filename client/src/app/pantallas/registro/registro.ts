@@ -43,30 +43,31 @@ export class Registro {
       return;
     }
 
-    try {
-      const peticion = this.http.post(
-        `${this.apiUrl}/autenticacion/registro`,
-        {
-          nombre: nombre,
-          apellido: apellido,
-          email: email,
-          nombreDeUsuario: nombreDeUsuario,
-          password: password,
-          fechaDeNacimiento: fechaDeNacimiento,
-          descripcion: descripcion,
-          imagenDePerfil: imagenDePerfil,
-        },
-        { responseType: 'text' },
-      );
+    const peticion = this.http.post(
+      `${this.apiUrl}/autenticacion/registro`,
+      {
+        nombre: nombre,
+        apellido: apellido,
+        email: email,
+        nombreDeUsuario: nombreDeUsuario,
+        password: password,
+        fechaDeNacimiento: fechaDeNacimiento,
+        descripcion: descripcion,
+        imagenDePerfil: imagenDePerfil,
+      },
+      { responseType: 'text' },
+    );
 
-      peticion.subscribe((a) => {
+    peticion.subscribe({
+      next: (a) => {
         if (a) {
+          localStorage.setItem('token', a);
           this.router.navigateByUrl('/publicaciones');
         }
-      });
-    } catch (error) {
-      console.log(error);
-      return;
-    }
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
