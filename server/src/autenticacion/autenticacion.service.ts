@@ -9,6 +9,7 @@ import { compare, hash } from 'bcrypt';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
 import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
 import { sign } from 'jsonwebtoken';
+import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class AutenticacionService {
@@ -16,13 +17,23 @@ export class AutenticacionService {
     @InjectModel(Usuario.name) private UsuarioModel: Model<Usuario>,
   ) {}
 
-  async registro(usuario: RegistroUsuarioDTO) {
+  async registro(
+    usuario: RegistroUsuarioDTO,
+    imagenDePerfil?: Express.Multer.File,
+  ) {
+    console.log('Cloudinar config:', {
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
     try {
       const passwordHasheada = await hash(usuario.password, 10);
 
       const usuarioCreado = await this.UsuarioModel.create({
         ...usuario,
         password: passwordHasheada,
+        imagenDePerfil: imagenDePerfil?.path ?? '',
       });
 
       const payload = {

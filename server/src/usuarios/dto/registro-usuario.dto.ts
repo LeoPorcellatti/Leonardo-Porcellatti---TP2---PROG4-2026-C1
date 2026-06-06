@@ -22,9 +22,6 @@ export class RegistroUsuarioDTO {
   @IsString()
   descripcion;
 
-  @IsString()
-  imagenDePerfil;
-
   @IsOptional()
   @IsString()
   perfil;

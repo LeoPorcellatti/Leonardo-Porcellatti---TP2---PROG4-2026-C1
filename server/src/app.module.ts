@@ -10,7 +10,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     FutbolistasModule,
     MongooseModule.forRoot(process.env.MONGO_URI!),
     PublicacionesModule,
