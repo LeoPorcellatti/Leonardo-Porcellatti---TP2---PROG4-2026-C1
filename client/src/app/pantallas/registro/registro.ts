@@ -16,6 +16,7 @@ export class Registro {
   http = inject(HttpClient);
   router = inject(Router);
   apiUrl = environment.apiUrl;
+  imagenDePerfil: File | null = null;
 
   formulario = new FormGroup({
     nombre: new FormControl('', Validators.required),
@@ -25,8 +26,14 @@ export class Registro {
     password: new FormControl('', [Validators.required, passwordValidator]),
     fechaDeNacimiento: new FormControl('', [Validators.required, edadValidator]),
     descripcion: new FormControl('', Validators.required),
-    imagenDePerfil: new FormControl('', Validators.required),
   });
+
+  capturarImagen(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.imagenDePerfil = input.files[0];
+    }
+  }
 
   registro(
     nombre: string,
@@ -43,20 +50,21 @@ export class Registro {
       return;
     }
 
-    const peticion = this.http.post(
-      `${this.apiUrl}/autenticacion/registro`,
-      {
-        nombre: nombre,
-        apellido: apellido,
-        email: email,
-        nombreDeUsuario: nombreDeUsuario,
-        password: password,
-        fechaDeNacimiento: fechaDeNacimiento,
-        descripcion: descripcion,
-        imagenDePerfil: imagenDePerfil,
-      },
-      { responseType: 'text' },
-    );
+    const formRegistro = new FormData();
+    formRegistro.append('nombre', nombre);
+    formRegistro.append('apellido', apellido);
+    formRegistro.append('email', email);
+    formRegistro.append('nombreDeUsuario', nombreDeUsuario);
+    formRegistro.append('password', password);
+    formRegistro.append('fechaDeNacimiento', fechaDeNacimiento);
+    formRegistro.append('descripcion', descripcion);
+    if (this.imagenDePerfil) {
+      formRegistro.append('imagenDePerfil', this.imagenDePerfil);
+    }
+
+    const peticion = this.http.post(`${this.apiUrl}/autenticacion/registro`, formRegistro, {
+      responseType: 'text',
+    });
 
     peticion.subscribe({
       next: (a) => {

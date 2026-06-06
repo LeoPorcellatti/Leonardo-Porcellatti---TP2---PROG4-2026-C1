@@ -96,9 +96,10 @@
       </div>
       <div class="campo">
         <input
-          type="imagenDePerfil"
+          type="file"
           name="imagenDePerfil"
-          formControlName="imagenDePerfil"
+          (change)="capturarImagen($event)"
+          accept="imagen/*"
           placeholder="imagen de perfil"
         />
         @if (
