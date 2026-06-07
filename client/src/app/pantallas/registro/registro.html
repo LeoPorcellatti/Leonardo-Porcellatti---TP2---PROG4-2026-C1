@@ -53,6 +53,27 @@
       </div>
       <div class="campo">
         <input
+          type="password"
+          name="repetirPassword"
+          formControlName="repetirPassword"
+          placeholder="repetir password"
+        />
+
+        @if (
+          formulario.get('repetirPassword')?.touched &&
+          formulario.get('repetirPassword')?.getError('required')
+        ) {
+          <small class="small-error">Repite tu password</small>
+        } @else if (
+          formulario.get('password')?.touched &&
+          formulario.get('repetirPassword')?.touched &&
+          formulario.get('password')?.value !== formulario.get('repetirPassword')?.value
+        ) {
+          <small class="small-error">Las password no coinciden</small>
+        }
+      </div>
+      <div class="campo">
+        <input
           type="date"
           name="fechaDeNacimiento"
           formControlName="fechaDeNacimiento"

@@ -24,6 +24,7 @@ export class Registro {
     email: new FormControl('', Validators.required),
     nombreDeUsuario: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, passwordValidator]),
+    repetirPassword: new FormControl('', [Validators.required, passwordValidator]),
     fechaDeNacimiento: new FormControl('', [Validators.required, edadValidator]),
     descripcion: new FormControl('', Validators.required),
   });
@@ -46,6 +47,10 @@ export class Registro {
   ) {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
+      return;
+    }
+
+    if (this.formulario.value.password !== this.formulario.value.repetirPassword) {
       return;
     }
 
