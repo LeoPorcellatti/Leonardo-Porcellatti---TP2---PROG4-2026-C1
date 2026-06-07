@@ -43,7 +43,6 @@ export class Registro {
     password: string,
     fechaDeNacimiento: string,
     descripcion: string,
-    imagenDePerfil: string,
   ) {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();

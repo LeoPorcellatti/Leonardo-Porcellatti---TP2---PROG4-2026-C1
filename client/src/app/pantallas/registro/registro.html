@@ -102,12 +102,6 @@
           accept="imagen/*"
           placeholder="imagen de perfil"
         />
-        @if (
-          formulario.get('imagenDePerfil')?.touched &&
-          formulario.get('imagenDePerfil')?.getError('required')
-        ) {
-          <small class="small-error">Ingrese su imagen de perfil</small>
-        }
       </div>
 
       <button
@@ -120,8 +114,7 @@
             formulario.value.nombreDeUsuario!,
             formulario.value.password!,
             formulario.value.fechaDeNacimiento!,
-            formulario.value.descripcion!,
-            formulario.value.imagenDePerfil!
+            formulario.value.descripcion!
           )
         "
       >
