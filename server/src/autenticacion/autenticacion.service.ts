@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -10,6 +12,9 @@ import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
 import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
 import { sign } from 'jsonwebtoken';
 import { v2 as cloudinary } from 'cloudinary';
+import { Multer } from 'multer';
+import { resolve } from 'path';
+import { rejects } from 'assert';
 
 @Injectable()
 export class AutenticacionService {
@@ -21,19 +26,39 @@ export class AutenticacionService {
     usuario: RegistroUsuarioDTO,
     imagenDePerfil?: Express.Multer.File,
   ) {
-    console.log('Cloudinar config:', {
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
-
     try {
+      let urlImagen = '';
+
+      if (imagenDePerfil) {
+        cloudinary.config({
+          cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+          api_key: process.env.CLOUDINARY_API_KEY,
+          api_secret: process.env.CLOUDINARY_API_SECRET,
+        });
+
+        const public_id = `IMG_PERFIL_${Date.now()}`;
+
+        urlImagen = await new Promise<string>((resolve, reject) => {
+          const uploader = cloudinary.uploader.upload_stream(
+            {
+              folder: 'imagenes_de_perfil',
+              public_id: public_id,
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result!.secure_url);
+            },
+          );
+          uploader.end(imagenDePerfil.buffer);
+        });
+      }
+
       const passwordHasheada = await hash(usuario.password, 10);
 
       const usuarioCreado = await this.UsuarioModel.create({
         ...usuario,
         password: passwordHasheada,
-        imagenDePerfil: imagenDePerfil?.path ?? '',
+        imagenDePerfil: urlImagen,
       });
 
       const payload = {

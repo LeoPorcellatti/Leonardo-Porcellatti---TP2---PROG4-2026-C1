@@ -16,36 +16,13 @@ import { AutenticacionService } from './autenticacion.service';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
 import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-
-function crearStorage() {
-  cloudinary.config({
-    cloud_name: 'dlmzdmcuh',
-    //process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: '582149334161213',
-    // process.env.CLOUDINARY_API_KEY,
-    api_secret: 'imMrIstl_leBLupQSeBzawUIIxI',
-    //process.env.CLOUDINARY_API_SECRET,
-  });
-
-  return new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'imagenes_de_perfil',
-      public_id: (req: any, file: any) => `PERFIL_${Date.now()}`,
-    } as any,
-  });
-}
 
 @Controller('autenticacion')
 export class AutenticacionController {
   constructor(private readonly autenticacionService: AutenticacionService) {}
 
   @Post('/registro')
-  @UseInterceptors(
-    FileInterceptor('imagenDePerfil', { storage: crearStorage() }),
-  )
+  @UseInterceptors(FileInterceptor('imagenDePerfil'))
   create(
     @Body() usuario: RegistroUsuarioDTO,
     @UploadedFile() imagenDePerfil: Express.Multer.File,
