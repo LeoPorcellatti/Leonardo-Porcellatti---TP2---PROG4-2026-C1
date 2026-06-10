@@ -3,7 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Usuario } from '../usuarios/entities/usuario.entity';
@@ -122,6 +126,7 @@ export class AutenticacionService {
       throw new UnauthorizedException();
     }
   }
+
   // async findOne(id: number) {
   //   return 'respuestaEnProgreso';
   // }

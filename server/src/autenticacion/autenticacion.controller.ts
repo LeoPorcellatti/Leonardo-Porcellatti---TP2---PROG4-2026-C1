@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
@@ -11,6 +13,8 @@ import {
   HttpCode,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';

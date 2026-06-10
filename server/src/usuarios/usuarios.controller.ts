@@ -15,6 +15,11 @@ import { RegistroUsuarioDTO } from './dto/registro-usuario.dto';
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
+  @Get(':id')
+  ObtenerUsuarioPorId(@Param('id') id: string) {
+    return this.usuariosService.obtenerUsuarioPorId(id);
+  }
+
   @Post()
   create(@Body() createUsuarioDto: RegistroUsuarioDTO) {
     return this.usuariosService.create(createUsuarioDto);
@@ -23,11 +28,6 @@ export class UsuariosController {
   @Get()
   findAll() {
     return this.usuariosService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usuariosService.findOne(+id);
   }
 
   @Patch(':id')
