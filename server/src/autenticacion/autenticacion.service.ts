@@ -31,7 +31,7 @@ export class AutenticacionService {
     imagenDePerfil?: Express.Multer.File,
   ) {
     try {
-      let urlImagen = '';
+      let urlImagen = process.env.IMAGEN_PERFIL_DEFAULT!;
 
       if (imagenDePerfil) {
         cloudinary.config({
