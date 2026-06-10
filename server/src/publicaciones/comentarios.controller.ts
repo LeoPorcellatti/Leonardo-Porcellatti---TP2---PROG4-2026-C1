@@ -8,7 +8,7 @@ import { UpdateComentarioDto } from './dto/update-comentarios.dto';
 export class ComentariosController {
   constructor(private readonly comentariosService: ComentariosService) {}
 
-  @Post(':id')
+  @Post()
   comentar(
     @Body() crearComentario: CreateComentarioDto,
     @Headers('authorization') auth: string,

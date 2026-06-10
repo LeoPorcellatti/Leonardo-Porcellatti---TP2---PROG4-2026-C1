@@ -28,14 +28,17 @@ export class ComentariosService {
     @InjectModel(Comentario.name) private ComentarioModel: Model<Comentario>,
   ) {}
 
-  async comentar(crearComentario: CreateComentarioDto, auth: string) {
+  private extraerPayload(auth: string) {
     if (!auth) {
       throw new UnauthorizedException();
     }
 
     const token = auth.replace('Bearer ', '');
+    return verify(token, process.env.CLAVE_SUPERSECRETA!) as any;
+  }
 
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+  async comentar(crearComentario: CreateComentarioDto, auth: string) {
+    const payload: any = this.extraerPayload(auth);
 
     const publicacion = await this.PublicacionModel.findOne({
       _id: crearComentario.publicacion,
@@ -60,12 +63,7 @@ export class ComentariosService {
     modificarComentario: UpdateComentarioDto,
     auth: string,
   ) {
-    if (!auth) {
-      throw new UnauthorizedException();
-    }
-
-    const token = auth.replace('Bearer ', '');
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+    const payload: any = this.extraerPayload(auth);
 
     const comentario = await this.ComentarioModel.findOne({
       _id: id,
@@ -84,9 +82,9 @@ export class ComentariosService {
       { _id: id },
       {
         mensaje: modificarComentario.mensaje,
-        modifcado: true,
+        modificado: true,
       },
-      { new: true },
+      { returnDocument: 'after' },
     );
 
     return comentarioActualizado;
