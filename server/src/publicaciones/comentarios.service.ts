@@ -129,90 +129,30 @@ export class ComentariosService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} publicacione`;
-  }
+  async traerComentarios(publicacionId: string, limte: number, offset: number) {
+    const publicacion = await this.PublicacionModel.findOne({
+      _id: publicacionId,
+      activo: true,
+    });
 
-  update(id: number, updatePublicacionesDto: UpdatePublicacionesDto) {
-    return `This action updates a #${id} publicacione`;
-  }
-
-  async eliminar(id: string, auth: string) {
-    if (!auth) {
-      throw new UnauthorizedException();
-    }
-    const token = auth.replace('Bearer ', '');
-
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
-
-    try {
-      const publicacion = await this.PublicacionModel.findById(id);
-
-      if (!publicacion) {
-        throw new UnauthorizedException();
-      }
-
-      if (publicacion.usuario.toString() !== payload._id.toString()) {
-        throw new UnauthorizedException();
-      }
-
-      await this.PublicacionModel.updateOne({ _id: id }, { activo: false });
-      return { message: 'Publicación borrada' };
-    } catch (error) {
-      console.log(error);
-      throw new UnauthorizedException();
-    }
-  }
-
-  async likear(id: string, auth: string) {
-    if (!auth) {
-      throw new UnauthorizedException();
-    }
-    const token = auth.replace('Bearer ', '');
-
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
-    try {
-      const publicacion = await this.PublicacionModel.findById(id);
-
-      if (!publicacion) {
-        throw new UnauthorizedException();
-      }
-
-      await this.PublicacionModel.updateOne(
-        { _id: id },
-        { $addToSet: { meGusta: payload._id } },
-      );
-
-      return { message: 'Publicación likeada' };
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
-  }
-
-  async deslikear(id: string, auth: string) {
-    if (!auth) {
-      throw new UnauthorizedException();
+    if (!publicacion) {
+      throw new NotFoundException();
     }
 
-    const token = auth.replace('Bearer ', '');
+    const comentarios = await this.ComentarioModel.find({
+      publicacion: publicacionId,
+      activo: true,
+    })
+      .sort({ creadoEn: -1 })
+      .skip(Number(offset) || 0)
+      .limit(Number(limte) || 3)
+      .populate('usuario', 'nombre apellido nombreUsuario imagenUrl');
 
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+    const total = await this.ComentarioModel.countDocuments({
+      publicacion: publicacionId,
+      activo: true,
+    });
 
-    try {
-      const publicacion = await this.PublicacionModel.findById(id);
-
-      if (!publicacion) {
-        throw new UnauthorizedException();
-      }
-
-      await this.PublicacionModel.updateOne(
-        { _id: id },
-        { $pull: { meGusta: payload._id } },
-      );
-
-      return { message: 'Publicación dislikeada' };
-    } catch (error) {
-      throw new UnauthorizedException();
-    }
+    return { comentarios, total };
   }
 }

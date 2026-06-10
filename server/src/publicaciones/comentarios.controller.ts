@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Controller, Post, Put, Body, Headers, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Body,
+  Headers,
+  Param,
+  Get,
+  Query,
+} from '@nestjs/common';
 import { ComentariosService } from './comentarios.service';
 import { CreateComentarioDto } from './dto/create-comentarios.dto';
 import { UpdateComentarioDto } from './dto/update-comentarios.dto';
@@ -23,5 +32,18 @@ export class ComentariosController {
     @Headers('authorization') auth: string,
   ) {
     return this.comentariosService.modificar(id, modificarComentarioDto, auth);
+  }
+
+  @Get(':publicacionId')
+  traerComentarios(
+    @Param('publicacionId') publicacionId: string,
+    @Query('limite') limite: number,
+    @Query('offset') offset: number,
+  ) {
+    return this.comentariosService.traerComentarios(
+      limite,
+      offset,
+      publicacionId,
+    );
   }
 }
