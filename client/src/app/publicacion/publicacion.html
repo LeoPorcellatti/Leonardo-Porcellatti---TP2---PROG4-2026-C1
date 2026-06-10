@@ -4,7 +4,7 @@
       <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
       <div class="publicacionCreacion">
         <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyyy' }} </span>
-        <span class="user"> {{ publicacion.usuarioNombre }} </span>
+        <span class="publicacionUser"> {{ publicacion.usuarioNombre }} </span>
         <img [src]="publicacion.usuarioImagen" alt="Imagen de perfil" />
       </div>
     </div>
