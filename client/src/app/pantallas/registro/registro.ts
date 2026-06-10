@@ -71,10 +71,24 @@ export class Registro {
     });
 
     peticion.subscribe({
-      next: (a) => {
-        if (a) {
-          localStorage.setItem('token', a);
-          this.router.navigateByUrl('/publicaciones');
+      next: (token) => {
+        if (token) {
+          localStorage.setItem('token', token);
+
+          const payload = JSON.parse(atob(token.split('.')[1]));
+
+          const usuarioId = payload._id;
+
+          this.http.get(`${this.apiUrl}/usuarios/${usuarioId}`).subscribe({
+            next: (usuario) => {
+              localStorage.setItem('usuario', JSON.stringify(usuario));
+
+              this.router.navigateByUrl('/publicaciones');
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
         }
       },
       error: (error) => {

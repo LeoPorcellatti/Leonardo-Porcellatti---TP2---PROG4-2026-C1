@@ -1,3 +1,30 @@
-<p>mi-perfil works!</p>
-
-<button class="botonesRutas" routerLink="publicaciones">Publicaciones</button>
+<div class="contenedorMiPerfil">
+  <div class="navbar">
+    <div class="presentacion">
+      <span class="logo">DEAD GAME EXPLORER</span>
+      <span class="slogan"> // La nostalgía nos guía._ ></span>
+    </div>
+    <div class="navAcciones">
+      <button class="boton" routerLink="/publicaciones">Publicaciones</button>
+    </div>
+  </div>
+  <div class="contenedorUsuario">
+    <div class="datosUsuario">
+      <img [src]="usuarioImagenDePerfil" alt="Imagen de perfil" />
+      <p>Nombre: {{ usuarioApellido + ', ' + usuarioNombre }}</p>
+      <p>User: {{ usuarioNombreDeUsuario }}</p>
+      <p>Email: {{ usuarioEmail }}</p>
+      <p>Descripción: {{ usuarioDescripcion }}</p>
+    </div>
+    <div class="listaPublicaciones">
+      @for (p of publicaciones(); track p._id) {
+        @if (p.usuario === usuarioId) {
+          <app-publicacion [publicacion]="p" />
+        }
+      }
+      @if (publicaciones().length === 0) {
+        <p class="sinPublicaciones">// No se encontraron publicaciones</p>
+      }
+    </div>
+  </div>
+</div>

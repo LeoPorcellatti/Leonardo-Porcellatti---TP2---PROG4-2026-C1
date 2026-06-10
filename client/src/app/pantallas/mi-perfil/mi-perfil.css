@@ -1,0 +1,70 @@
+.contenedorMiPerfil {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(57, 255, 138, 0.5);
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(57, 255, 138, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.presentacion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  font-size: 22px;
+  color: #39ff8a;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 1);
+  letter-spacing: 2px;
+}
+
+.slogan {
+  display: block;
+  font-size: 12px;
+  color: rgba(57, 255, 138, 0.4);
+  margin-bottom: 16px;
+}
+
+.navAcciones {
+  display: flex;
+  gap: 6px;
+}
+
+.boton {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: block;
+}
+
+.boton:hover {
+  border-color: rgba(57, 255, 138);
+  color: #39ff8a;
+  background-color: rgba(57, 255, 138, 0.05);
+}
+
+.datosUsuario img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(57, 255, 138, 1);
+  box-shadow:
+    0 0 8px rgba(57, 255, 138, 1),
+    0 10px 25px rgba(0, 0, 0, 0.35);
+}
