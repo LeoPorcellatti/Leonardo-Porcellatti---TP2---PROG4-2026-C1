@@ -14,20 +14,12 @@ export class MiPerfil implements OnInit {
   http = inject(HttpClient);
   apiUrl = environment.apiUrl;
   token = localStorage.getItem('token');
+  usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
 
   publicaciones: WritableSignal<any[]> = signal([]);
 
   orden: string = 'fecha';
   limite: number = 3;
-
-  usuarioNombre = JSON.parse(localStorage.getItem('usuario')!)?.nombre;
-  usuarioApellido = JSON.parse(localStorage.getItem('usuario')!)?.apellido;
-  usuarioNombreDeUsuario = JSON.parse(localStorage.getItem('usuario')!)?.nombreDeUsuario;
-  usuarioDescripcion = JSON.parse(localStorage.getItem('usuario')!)?.descripcion;
-  usuarioEmail = JSON.parse(localStorage.getItem('usuario')!)?.email;
-  usuarioImagenDePerfil = JSON.parse(localStorage.getItem('usuario')!)?.imagenDePerfil;
-
-  usuarioId = JSON.parse(localStorage.getItem('usuario')!)?._id;
 
   cargarUltimasPublicaciones() {
     const peticion = this.http.get(

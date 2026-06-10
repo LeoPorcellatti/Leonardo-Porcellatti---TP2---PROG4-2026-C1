@@ -15,6 +15,9 @@ export class Publicacion {
 
   _publicacion = signal<any>(null);
 
+  token = localStorage.getItem('token');
+  usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+
   @Input() set publicacion(valor: any) {
     this._publicacion.set(valor);
   }
@@ -22,9 +25,6 @@ export class Publicacion {
   get publicacion() {
     return this._publicacion();
   }
-
-  token = localStorage.getItem('token');
-  usuarioId = JSON.parse(localStorage.getItem('usuario')!)?._id;
 
   darLike() {
     const peticion = this.http.post(
@@ -39,7 +39,7 @@ export class Publicacion {
       next: () => {
         this._publicacion.update((p) => ({
           ...p,
-          meGusta: [...p.meGusta, this.usuarioId],
+          meGusta: [...p.meGusta, this.usuario._id],
         }));
       },
       error: (error) => {
@@ -58,7 +58,7 @@ export class Publicacion {
       next: () => {
         this._publicacion.update((p: any) => ({
           ...p,
-          meGusta: p.meGusta.filter((id: string) => id !== this.usuarioId),
+          meGusta: p.meGusta.filter((id: string) => id !== this.usuario._id),
         }));
       },
       error: (error) => {

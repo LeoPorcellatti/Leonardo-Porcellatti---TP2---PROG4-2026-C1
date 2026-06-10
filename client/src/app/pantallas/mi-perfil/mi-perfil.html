@@ -10,15 +10,15 @@
   </div>
   <div class="contenedorUsuario">
     <div class="datosUsuario">
-      <img [src]="usuarioImagenDePerfil" alt="Imagen de perfil" />
-      <p>Nombre: {{ usuarioApellido + ', ' + usuarioNombre }}</p>
-      <p>User: {{ usuarioNombreDeUsuario }}</p>
-      <p>Email: {{ usuarioEmail }}</p>
-      <p>Descripción: {{ usuarioDescripcion }}</p>
+      <img [src]="usuario.imagenDePerfil" alt="Imagen de perfil" />
+      <p>Nombre: {{ usuario.apellido + ', ' + usuario.nombre }}</p>
+      <p>User: {{ usuario.nombreDeUsuario }}</p>
+      <p>Email: {{ usuario.email }}</p>
+      <p>Descripción: {{ usuario.descripcion }}</p>
     </div>
     <div class="listaPublicaciones">
       @for (p of publicaciones(); track p._id) {
-        @if (p.usuario === usuarioId) {
+        @if (p.usuario === usuario._id) {
           <app-publicacion [publicacion]="p" />
         }
       }

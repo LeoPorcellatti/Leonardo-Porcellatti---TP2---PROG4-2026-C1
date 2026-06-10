@@ -4,6 +4,8 @@
       <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
       <div class="publicacionCreacion">
         <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyyy' }} </span>
+        <span class="user"> {{ publicacion.usuarioNombre }} </span>
+        <img [src]="publicacion.usuarioImagen" alt="Imagen de perfil" />
       </div>
     </div>
 
@@ -12,7 +14,7 @@
     </div>
 
     <div class="publicacionAcciones">
-      @if (publicacion.meGusta.includes(usuarioId)) {
+      @if (publicacion.meGusta.includes(usuario._id)) {
         <button class="botonLike activo" (click)="quitarLike()">Dislikear</button>
       } @else {
         <button class="botonLike" (click)="darLike()">Likear</button>
@@ -20,7 +22,7 @@
       <span class="contadorLike">Likes: {{ publicacion.meGusta.length }}</span>
 
       <div class="eliminarPublicacion">
-        @if (publicacion.usuario === usuarioId) {
+        @if (publicacion.usuario === usuario._id) {
           <button class="botonEliminar" (click)="eliminar()">Eliminar</button>
         }
       </div>

@@ -24,17 +24,17 @@ export class Publicaciones implements OnInit {
   modalAbierto: boolean = false;
   nuevaPublicacion = { titulo: '', descripcion: '', imagenUrl: '' };
 
+  token = localStorage.getItem('token');
+
   cerrarSesion(): void {
     localStorage.removeItem('token');
     this.router.navigateByUrl('/login');
   }
 
   cargarPublicaciones() {
-    const token = localStorage.getItem('token');
-
     const peticion = this.http.get(
       `${this.apiUrl}/publicaciones?orden=${this.orden}&limite=${this.limite}&offset=${this.offset}`,
-      { headers: { Authorization: `Bearer ${token}` } },
+      { headers: { Authorization: `Bearer ${this.token}` } },
     );
     peticion.subscribe({
       next: (a: any) => {
