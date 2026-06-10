@@ -41,9 +41,9 @@ export class ComentariosController {
     @Query('offset') offset: number,
   ) {
     return this.comentariosService.traerComentarios(
+      publicacionId,
       limite,
       offset,
-      publicacionId,
     );
   }
 }

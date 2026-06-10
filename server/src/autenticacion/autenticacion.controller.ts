@@ -15,6 +15,7 @@ import {
   UploadedFile,
   UseGuards,
   Req,
+  Headers,
 } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
@@ -38,6 +39,16 @@ export class AutenticacionController {
   @HttpCode(200)
   findOne(@Body() usuario: LoginUsuarioDTO) {
     return this.autenticacionService.login(usuario);
+  }
+
+  @Post('/autorizar')
+  autorizar(@Headers('authorization') auth: string) {
+    return this.autenticacionService.autorizar(auth);
+  }
+
+  @Post('/refrescar')
+  refrescar(@Headers('authorization') auth: string) {
+    return this.autenticacionService.refrescar(auth);
   }
 
   // @Post('/login'){

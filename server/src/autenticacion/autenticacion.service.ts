@@ -14,7 +14,7 @@ import { Usuario } from '../usuarios/entities/usuario.entity';
 import { compare, hash } from 'bcrypt';
 import { RegistroUsuarioDTO } from '../usuarios/dto/registro-usuario.dto';
 import { LoginUsuarioDTO } from '../usuarios/dto/login-usuario.dto';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { v2 as cloudinary } from 'cloudinary';
 import { Multer } from 'multer';
 import { resolve } from 'path';
@@ -68,12 +68,11 @@ export class AutenticacionService {
       const payload = {
         email: usuarioCreado.email,
         _id: usuarioCreado._id,
-        exp: Date.now() + 60 * 15,
+        perfil: usuarioCreado.perfil,
       };
 
       const jwt = sign(payload, process.env.CLAVE_SUPERSECRETA!, {
-        algorithm: 'HS256',
-        audience: 'registro',
+        expiresIn: '15m',
       });
 
       return jwt;
@@ -108,12 +107,11 @@ export class AutenticacionService {
       const payload = {
         email: usuarioLogueado.email,
         _id: usuarioLogueado._id,
-        exp: Date.now() + 60 * 15,
+        perfil: usuarioLogueado.perfil,
       };
 
       const jwt = sign(payload, process.env.CLAVE_SUPERSECRETA!, {
-        algorithm: 'HS256',
-        audience: 'login',
+        expiresIn: '15m',
       });
 
       const { password, ...usuarioSinPassword } = usuarioLogueado.toObject();
@@ -127,15 +125,47 @@ export class AutenticacionService {
     }
   }
 
-  // async findOne(id: number) {
-  //   return 'respuestaEnProgreso';
-  // }
+  async autorizar(auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
 
-  // async update(id: number, updateAutenticacionDto: UpdateAutenticacionDto) {
-  //   return 'respuestaEnProgreso';
-  // }
+    const token = auth.replace('Bearer ', '');
 
-  // async remove(id: number) {
-  //   return 'respuestaEnProgreso';
-  // }
+    try {
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+      const usuario = await this.UsuarioModel.findById(payload._id);
+
+      if (!usuario) {
+        throw new UnauthorizedException();
+      }
+
+      const { password, ...usuarioSinPassword } = usuario.toObject();
+
+      return usuarioSinPassword;
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  refrescar(auth: string) {
+    if (!auth) throw new UnauthorizedException();
+
+    const token = auth.replace('Bearer ', '');
+
+    try {
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+      const nuevoJwt = sign(
+        { email: payload.email, _id: payload._id, perfil: payload.perfil },
+        process.env.CLAVE_SUPERSECRETA!,
+        { expiresIn: '15m' },
+      );
+
+      return nuevoJwt;
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
+  }
 }
