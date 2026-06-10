@@ -18,6 +18,7 @@ import { verify } from 'jsonwebtoken';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { Comentario } from './entities/comentario.entity';
 import { CreateComentarioDto } from './dto/create-comentarios.dto';
+import { UpdateComentarioDto } from './dto/update-comentarios.dto';
 
 @Injectable()
 export class ComentariosService {
@@ -52,6 +53,43 @@ export class ComentariosService {
     });
 
     return comentario;
+  }
+
+  async modificar(
+    id: string,
+    modificarComentario: UpdateComentarioDto,
+    auth: string,
+  ) {
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+
+    const token = auth.replace('Bearer ', '');
+    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+    const comentario = await this.ComentarioModel.findOne({
+      _id: id,
+      activo: true,
+    });
+
+    if (!comentario) {
+      throw new NotFoundException();
+    }
+
+    if (comentario.usuario.toString() !== payload._id) {
+      throw new UnauthorizedException();
+    }
+
+    const comentarioActualizado = await this.ComentarioModel.findOneAndUpdate(
+      { _id: id },
+      {
+        mensaje: modificarComentario.mensaje,
+        modifcado: true,
+      },
+      { new: true },
+    );
+
+    return comentarioActualizado;
   }
 
   async listar(
