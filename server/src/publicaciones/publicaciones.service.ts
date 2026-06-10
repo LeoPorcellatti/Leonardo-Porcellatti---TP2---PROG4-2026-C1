@@ -17,6 +17,7 @@ import { Usuario } from 'src/usuarios/entities/usuario.entity';
 export class PublicacionesService {
   constructor(
     @InjectModel(Publicacion.name) private PublicacionModel: Model<Publicacion>,
+    @InjectModel(Usuario.name) private UsuarioModel: Model<Usuario>,
   ) {}
 
   async publicar(publicacion: CreatePublicacionesDto, auth: string) {
@@ -63,6 +64,14 @@ export class PublicacionesService {
         { $skip: Number(offset) || 0 },
         { $limit: Number(limite) || 5 },
       ]);
+
+      for (const publicacion of publicaciones) {
+        const usuario = await this.UsuarioModel.findById(publicacion.usuario);
+
+        publicacion.usuarioNombre = usuario?.nombreDeUsuario;
+
+        publicacion.usuarioImagen = usuario?.imagenDePerfil;
+      }
 
       return publicaciones;
     } catch (error) {
