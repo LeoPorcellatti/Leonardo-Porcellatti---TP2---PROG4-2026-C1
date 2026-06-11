@@ -101,4 +101,29 @@ export class PublicacionAmpliada implements OnInit {
       if (id) this.traerComentarios(id);
     });
   }
+
+  editarComentario(comentario: any) {
+    comentario.editando = true;
+    comentario.mensajeEditado = comentario.mensaje;
+  }
+
+  confirmarEdicion(comentario: any) {
+    if (!comentario.mensajeEditado.trim()) {
+      return;
+    }
+
+    this.http
+      .put(
+        `${this.apiUrl}/comentarios/${comentario._id}`,
+        { mensaje: comentario.mensajeEditado },
+        { headers: { Authorization: `Bearer ${this.token}` } },
+      )
+      .subscribe({
+        next: () => {
+          comentario.mensaje = comentario.mensajeEditado;
+          comentario.modificado = true;
+          comentario.editando = false;
+        },
+      });
+  }
 }

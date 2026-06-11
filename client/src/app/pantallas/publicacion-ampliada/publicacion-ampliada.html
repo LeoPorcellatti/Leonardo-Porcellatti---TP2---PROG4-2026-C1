@@ -28,21 +28,35 @@
         <span>Comentarios {{ totalComentarios() }} </span>
       </div>
 
-      <div class="comentarios">
+      <div class="contenedorComentarios">
         @for (c of comentarios(); track c._id) {
-          <div class="comentario">
-            <img [src]="c.usuario.imagenDePerfil" alt="Imagen de perfil" />
-            <span class="comentarioUsuario"> {{ c.usuario.nombreDeUsuario }} </span>
-            <p>{{ c.mensaje }}</p>
-            <span class="comentarioFecha"> {{ c.creadoEn | date: 'dd/MM/yyyy' }} </span>
-            @if (c.modificado) {
-              <span class="comentarioEditado">(editado)</span>
+          <div class="comentarioListado">
+            <div class="comentarioDatos">
+              <img [src]="c.usuario.imagenDePerfil" alt="Imagen de perfil" />
+              <span class="comentarioUsuario"> {{ c.usuario.nombreDeUsuario }} </span>
+              @if (c.modificado) {
+                <span class="comentarioEditado">(editado)</span>
+              }
+            </div>
+
+            @if (c.editando) {
+              <input class="comentario" [(ngModel)]="c.mensajeEditado" />
+              <button class="boton" (click)="confirmarEdicion(c)">Ok</button>
+              <button class="boton" (click)="c.editando = false">Cancelar</button>
+            } @else {
+              <p>{{ c.mensaje }}</p>
+              @if (c.usuario._id === usuario._id) {
+                <button class="boton" (click)="editarComentario(c)">Editar</button>
+              }
             }
+
+            <span class="comentarioFecha"> {{ c.creadoEn | date: 'dd/MM/yyyy' }} </span>
           </div>
         }
         @if (comentarios().length < totalComentarios()) {
           <button class="boton" (click)="cargarComentarios()">Cargar comentarios</button>
         }
+
         <div class="nuevoComentario">
           <input
             type="text"
