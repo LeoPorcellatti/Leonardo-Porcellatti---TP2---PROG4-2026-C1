@@ -11,6 +11,9 @@
 
     <div class="publicacionContenido">
       <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
+      @if (publicacion.imagenUrl) {
+        <img class="publicacionImagen" [src]="publicacion.imagenUrl" alt="imagen de publicacion" />
+      }
     </div>
 
     <div class="publicacionAcciones">

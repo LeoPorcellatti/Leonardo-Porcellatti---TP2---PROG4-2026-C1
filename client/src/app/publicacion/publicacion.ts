@@ -28,6 +28,20 @@ export class Publicacion {
     return this._publicacion();
   }
 
+  publicar() {
+    const peticion = this.http.post(
+      `${this.apiUrl}/publicaciones`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      },
+    );
+
+    peticion.subscribe({
+      next: () => {},
+    });
+  }
+
   darLike() {
     const peticion = this.http.post(
       `${this.apiUrl}/publicaciones/${this.publicacion._id}`,

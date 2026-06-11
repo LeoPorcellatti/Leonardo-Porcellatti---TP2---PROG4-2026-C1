@@ -16,6 +16,8 @@ export class Publicaciones implements OnInit {
   router = inject(Router);
   apiUrl = environment.apiUrl;
 
+  imagenDePublicacion: File | null = null;
+
   publicaciones: WritableSignal<any[]> = signal([]);
   orden: string = 'fecha';
   limite: number = 5;
@@ -77,7 +79,40 @@ export class Publicaciones implements OnInit {
     }
   }
 
+  capturarImagen(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.imagenDePublicacion = input.files[0];
+    }
+  }
+
   publicar() {
-    console.log('FALTA EL CÓDIGO');
+    if (!this.nuevaPublicacion.titulo || !this.nuevaPublicacion.descripcion) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('titulo', this.nuevaPublicacion.titulo);
+    formData.append('descripcion', this.nuevaPublicacion.descripcion);
+    if (this.imagenDePublicacion) {
+      formData.append('imagenDePublicacion', this.imagenDePublicacion);
+    }
+
+    this.http
+      .post(`${this.apiUrl}/publicaciones`, formData, {
+        headers: { Authorization: `Bearer ${this.token}` },
+      })
+      .subscribe({
+        next: () => {
+          this.cerrarModal();
+          this.offset = 0;
+          this.cargarPublicaciones();
+          this.nuevaPublicacion = { titulo: '', descripcion: '', imagenUrl: '' };
+          this.imagenDePublicacion = null;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }

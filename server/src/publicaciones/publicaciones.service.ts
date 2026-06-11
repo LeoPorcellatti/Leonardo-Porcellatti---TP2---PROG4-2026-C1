@@ -70,6 +70,7 @@ export class PublicacionesService {
       const publicacionCreada = await this.PublicacionModel.create({
         ...publicacion,
         usuario: payload._id,
+        imagenUrl: urlImagen,
       });
       return publicacionCreada;
     } catch (error) {

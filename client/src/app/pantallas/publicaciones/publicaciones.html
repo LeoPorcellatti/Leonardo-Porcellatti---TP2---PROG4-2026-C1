@@ -46,7 +46,14 @@
           <input type="text" placeholder="Descripción" [(ngModel)]="nuevaPublicacion.descripcion" />
         </div>
         <div class="campo">
-          <input type="text" placeholder="URL IMAGEN" />
+          <input
+            type="file"
+            name="imagenDePublicacion"
+            draggable="true"
+            (change)="capturarImagen($event)"
+            accept="imagen/*"
+            placeholder="Inserte una imagen..."
+          />
         </div>
         <div class="modalAcciones">
           <button class="boton" (click)="publicar()">Publicar</button>
