@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -15,7 +16,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Publicacion } from './entities/publicacion.entity';
 import { Model } from 'mongoose';
 import { verify } from 'jsonwebtoken';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { Usuario } from '../usuarios/entities/usuario.entity';
+import { v2 as cloudinary } from 'cloudinary';
+import { resolve } from 'path';
+import { rejects } from 'assert';
 
 @Injectable()
 export class PublicacionesService {
@@ -24,14 +28,43 @@ export class PublicacionesService {
     @InjectModel(Usuario.name) private UsuarioModel: Model<Usuario>,
   ) {}
 
-  async publicar(publicacion: CreatePublicacionesDto, auth: string) {
+  async publicar(
+    publicacion: CreatePublicacionesDto,
+    auth: string,
+    imagenDePublicacion?: Express.Multer.File,
+  ) {
     if (!auth) {
       throw new UnauthorizedException();
     }
 
-    const token = auth.replace('Bearer ', '');
+    let urlImagen = '';
 
+    const token = auth.replace('Bearer ', '');
     const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+    if (imagenDePublicacion) {
+      cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+      });
+
+      const public_id = `IMG_POST_${Date.now()}`;
+
+      urlImagen = await new Promise<string>((resolve, reject) => {
+        const uploader = cloudinary.uploader.upload_stream(
+          {
+            folder: 'imagenes_de_publicaciones',
+            public_id: public_id,
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result!.secure_url);
+          },
+        );
+        uploader.end(imagenDePublicacion.buffer);
+      });
+    }
 
     try {
       const publicacionCreada = await this.PublicacionModel.create({

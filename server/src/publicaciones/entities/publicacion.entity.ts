@@ -18,9 +18,6 @@ export class Publicacion {
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Usuario' }], default: [] })
   meGusta: Types.ObjectId[];
 
-  // @Prop({ type: [Comentario], default: []})
-  // comentarios: Comentario[];
-
   @Prop({ default: true })
   activo: boolean;
 
