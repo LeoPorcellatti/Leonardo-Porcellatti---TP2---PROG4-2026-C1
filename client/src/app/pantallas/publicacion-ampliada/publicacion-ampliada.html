@@ -22,6 +22,34 @@
       <div class="publicacionContenido">
         <p class="publicacionDescripcion">{{ publicacion().descripcion }}</p>
       </div>
+
+      <div class="metricasPublicacion">
+        <span>Likes: {{ publicacion().meGusta.length }}</span>
+        <span>Comentarios {{ totalComentarios() }} </span>
+      </div>
+
+      <div class="comentarios">
+        @for (c of comentarios(); track c._id) {
+          <div class="comentario">
+            <img [src]="c.usuario.imagenDePerfil" alt="Imagen de perfil" />
+            <span class="comentarioUsuario"> {{ c.usuario.nombreDeUsuario }} </span>
+            <p>{{ c.mensaje }}</p>
+            <span class="comentarioFecha"> {{ c.creadoEn | date: 'dd/MM/yyyy' }} </span>
+            @if (c.modificado) {
+              <span class="comentarioEditado">(editado)</span>
+            }
+          </div>
+        }
+        <div class="nuevoComentario">
+          <input
+            type="text"
+            class="comentario"
+            placeholder="Escribí un comentario..."
+            [(ngModel)]="nuevoComentario"
+          />
+          <button class="boton" (click)="comentar()">Enviar</button>
+        </div>
+      </div>
     </div>
   </div>
 }
