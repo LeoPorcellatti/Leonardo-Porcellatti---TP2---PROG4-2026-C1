@@ -43,8 +43,8 @@ export class PublicacionesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.publicacionesService.findOne(+id);
+  traerPublicacionPorId(@Param('id') id: string) {
+    return this.publicacionesService.traerPublicacionPorId(id);
   }
 
   @Patch(':id')

@@ -4,7 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
 import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -78,6 +82,26 @@ export class PublicacionesService {
       console.log(error);
       throw new UnauthorizedException();
     }
+  }
+
+  async traerPublicacionPorId(id: string) {
+    const publicacion = await this.PublicacionModel.findOne({
+      _id: id,
+      activo: true,
+    });
+
+    if (!publicacion) {
+      throw new NotFoundException();
+    }
+
+    const usuario = await this.UsuarioModel.findById(publicacion.usuario);
+
+    const resultado = publicacion.toObject() as any;
+
+    resultado.usuarioNombre = usuario?.nombreDeUsuario;
+    resultado.usuarioImagen = usuario?.imagenDePerfil;
+
+    return resultado;
   }
 
   findOne(id: number) {

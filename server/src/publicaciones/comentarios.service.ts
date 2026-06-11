@@ -55,7 +55,10 @@ export class ComentariosService {
       mensaje: crearComentario.mensaje,
     });
 
-    return comentario;
+    return comentario.populate(
+      'usuario',
+      'nombre apellido nombreDeUsuario imagenDePerfil',
+    );
   }
 
   async modificar(
@@ -146,7 +149,7 @@ export class ComentariosService {
       .sort({ creadoEn: -1 })
       .skip(Number(offset) || 0)
       .limit(Number(limte) || 3)
-      .populate('usuario', 'nombre apellido nombreUsuario imagenUrl');
+      .populate('usuario', 'nombre apellido nombreDeUsuario imagenDePerfil');
 
     const total = await this.ComentarioModel.countDocuments({
       publicacion: publicacionId,
