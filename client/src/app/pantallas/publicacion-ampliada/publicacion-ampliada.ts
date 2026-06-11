@@ -93,4 +93,12 @@ export class PublicacionAmpliada implements OnInit {
         });
     });
   }
+
+  cargarComentarios() {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+
+      if (id) this.traerComentarios(id);
+    });
+  }
 }

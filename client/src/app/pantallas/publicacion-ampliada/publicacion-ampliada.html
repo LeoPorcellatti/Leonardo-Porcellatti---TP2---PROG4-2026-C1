@@ -40,6 +40,9 @@
             }
           </div>
         }
+        @if (comentarios().length < totalComentarios()) {
+          <button class="boton" (click)="cargarComentarios()">Cargar comentarios</button>
+        }
         <div class="nuevoComentario">
           <input
             type="text"
