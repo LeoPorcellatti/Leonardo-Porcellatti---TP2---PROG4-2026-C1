@@ -1,0 +1,27 @@
+@if (publicacion()) {
+  <div class="publicacionAmpliada">
+    <div class="navbar">
+      <div class="presentacion">
+        <span class="logo">DEAD GAME EXPLORER</span>
+        <span class="slogan"> // La nostalgía nos guía._ ></span>
+      </div>
+      <div class="navAcciones">
+        <button class="boton" routerLink="/publicaciones">Volver</button>
+      </div>
+    </div>
+
+    <div class="publicacionActual">
+      <div class="publicacionDatos">
+        <h3 class="publicacionTitulo">{{ publicacion().titulo }}</h3>
+        <div class="publicacionCreacion">
+          <span class="publicacionFecha"> {{ publicacion().creadoEn | date: 'dd/MM/yyyy' }} </span>
+          <span class="publicacionUser"> {{ publicacion().usuarioNombre }} </span>
+          <img [src]="publicacion().usuarioImagen" alt="Imagen de perfil" />
+        </div>
+      </div>
+      <div class="publicacionContenido">
+        <p class="publicacionDescripcion">{{ publicacion().descripcion }}</p>
+      </div>
+    </div>
+  </div>
+}

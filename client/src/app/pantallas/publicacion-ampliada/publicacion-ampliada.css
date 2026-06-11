@@ -1,0 +1,119 @@
+.publicacionAmpliada {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(57, 255, 138, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.presentacion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  font-size: 22px;
+  color: #39ff8a;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 1);
+  letter-spacing: 2px;
+}
+
+.slogan {
+  display: block;
+  font-size: 12px;
+  color: rgba(57, 255, 138, 0.4);
+  margin-bottom: 16px;
+}
+
+.navAcciones {
+  display: flex;
+  gap: 6px;
+}
+
+.publicacionActual {
+  background: rgba(10, 30, 20, 0.6);
+  border: 1px solid rgba(57, 255, 138, 0.15);
+  border-left: 2px solid rgba(57, 255, 138, 0.4);
+  padding: 12px 16px;
+}
+
+.publicacionDatos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.publicacionCreacion {
+  margin-left: auto;
+}
+
+.publicacionCreacion img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(57, 255, 138, 1);
+  box-shadow:
+    0 0 8px rgba(57, 255, 138, 1),
+    0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.publicacionTitulo,
+.publicacionUser {
+  font-size: 14px;
+  color: #4ab3f4;
+  margin: 0 0 8px 0;
+}
+
+.publicacionDescripcion {
+  font-size: 12px;
+  color: rgba(200, 230, 210, 0.75);
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+}
+
+.publicacionAcciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.eliminarPublicacion {
+  margin-left: auto;
+}
+
+.publicacionFecha,
+.publicacionLikes {
+  font-size: 11px;
+  color: rgba(57, 255, 138, 0.5);
+  line-height: 1.6;
+}
+
+.boton {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: block;
+}
+
+.boton:hover {
+  border-color: rgb(57, 255, 138);
+  color: #39ff8a;
+  background: rgb(57, 255, 138, 0.05);
+}

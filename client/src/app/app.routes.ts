@@ -14,11 +14,17 @@ export const routes: Routes = [
     path: 'mi-perfil',
     loadComponent: () => import('./pantallas/mi-perfil/mi-perfil').then((a) => a.MiPerfil),
   },
-
   {
     path: 'publicaciones',
     loadComponent: () =>
       import('./pantallas/publicaciones/publicaciones').then((a) => a.Publicaciones),
+  },
+  {
+    path: 'publicaciones/:id',
+    loadComponent: () =>
+      import('./pantallas/publicacion-ampliada/publicacion-ampliada').then(
+        (a) => a.PublicacionAmpliada,
+      ),
   },
   {
     path: 'registro',

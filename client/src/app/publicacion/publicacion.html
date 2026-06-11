@@ -1,5 +1,5 @@
 @if (publicacion.activo) {
-  <div class="publicacionCard">
+  <div class="publicacionCard" (click)="verPublicacion()">
     <div class="publicacionDatos">
       <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
       <div class="publicacionCreacion">
@@ -15,15 +15,19 @@
 
     <div class="publicacionAcciones">
       @if (publicacion.meGusta.includes(usuario._id)) {
-        <button class="botonLike activo" (click)="quitarLike()">Dislikear</button>
+        <button class="botonLike activo" (click)="$event.stopPropagation(); quitarLike()">
+          Dislikear
+        </button>
       } @else {
-        <button class="botonLike" (click)="darLike()">Likear</button>
+        <button class="botonLike" (click)="$event.stopPropagation(); darLike()">Likear</button>
       }
       <span class="contadorLike">Likes: {{ publicacion.meGusta.length }}</span>
 
       <div class="eliminarPublicacion">
         @if (publicacion.usuario === usuario._id) {
-          <button class="botonEliminar" (click)="eliminar()">Eliminar</button>
+          <button class="botonEliminar" (click)="$event.stopPropagation(); eliminar()">
+            Eliminar
+          </button>
         }
       </div>
     </div>

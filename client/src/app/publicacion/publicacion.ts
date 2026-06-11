@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, Input, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publicacion',
@@ -11,6 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class Publicacion {
   http = inject(HttpClient);
+  router = inject(Router);
   apiUrl = environment.apiUrl;
 
   _publicacion = signal<any>(null);
@@ -83,5 +85,9 @@ export class Publicacion {
         console.log(error);
       },
     });
+  }
+
+  verPublicacion() {
+    this.router.navigateByUrl(`/publicaciones/${this.publicacion._id}`);
   }
 }
