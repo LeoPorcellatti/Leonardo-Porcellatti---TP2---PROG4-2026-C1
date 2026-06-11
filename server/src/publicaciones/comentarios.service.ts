@@ -15,7 +15,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Publicacion } from './entities/publicacion.entity';
 import { Model } from 'mongoose';
 import { verify } from 'jsonwebtoken';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { Usuario } from '../usuarios/entities/usuario.entity';
 import { Comentario } from './entities/comentario.entity';
 import { CreateComentarioDto } from './dto/create-comentarios.dto';
 import { UpdateComentarioDto } from './dto/update-comentarios.dto';
