@@ -83,9 +83,9 @@
 }
 
 .publicacionImagen {
-  width: 30%;
-  height: 30%;
-  object-fit: cover;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: contain;
   margin-top: 8px;
   border: 1px solid rgba(57, 255, 138, 1);
   box-shadow:
