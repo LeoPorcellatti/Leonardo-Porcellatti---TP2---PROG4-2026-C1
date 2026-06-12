@@ -89,7 +89,7 @@ export class Registro {
             next: (usuario) => {
               localStorage.setItem('usuario', JSON.stringify(usuario));
 
-              this.router.navigateByUrl('/publicaciones');
+              this.router.navigateByUrl('/');
             },
             error: (error) => {
               console.log(error);
