@@ -17,6 +17,7 @@ export class Registro {
   router = inject(Router);
   apiUrl = environment.apiUrl;
   imagenDePerfil: File | null = null;
+  imagenDePerfilError: boolean = false;
 
   formulario = new FormGroup({
     nombre: new FormControl('', Validators.required),
@@ -51,6 +52,11 @@ export class Registro {
     }
 
     if (this.formulario.value.password !== this.formulario.value.repetirPassword) {
+      return;
+    }
+
+    if (!this.imagenDePerfil) {
+      this.imagenDePerfilError = true;
       return;
     }
 

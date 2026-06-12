@@ -120,9 +120,12 @@
           type="file"
           name="imagenDePerfil"
           (change)="capturarImagen($event)"
-          accept="imagen/*"
+          accept="image/*"
           placeholder="imagen de perfil"
         />
+        @if (imagenDePerfilError) {
+          <small class="small-error">Ingrese su imagen de perfil</small>
+        }
       </div>
 
       <button
