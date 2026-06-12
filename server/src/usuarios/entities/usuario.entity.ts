@@ -21,10 +21,10 @@ export class Usuario {
   fechaDeNacimiento: string;
 
   @Prop()
-  descripcion?: string;
+  descripcion: string;
 
   @Prop()
-  imagenDePerfil?: string;
+  imagenDePerfil: string;
 
   @Prop({ enum: ['usuario', 'administrador'], default: 'usuario' })
   perfil?: string;
