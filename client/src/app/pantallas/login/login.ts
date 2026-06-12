@@ -36,7 +36,7 @@ export class Login {
         if (a) {
           localStorage.setItem('token', a.token);
           localStorage.setItem('usuario', JSON.stringify(a.usuario));
-          this.router.navigateByUrl('/publicaciones');
+          this.router.navigateByUrl('/');
         }
       });
     } catch (error) {

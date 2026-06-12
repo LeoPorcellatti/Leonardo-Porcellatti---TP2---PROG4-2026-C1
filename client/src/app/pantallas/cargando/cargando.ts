@@ -41,6 +41,6 @@ export class Cargando implements OnInit {
             this.router.navigateByUrl('/login');
           },
         });
-    }, 3000);
+    }, 1500);
   }
 }
