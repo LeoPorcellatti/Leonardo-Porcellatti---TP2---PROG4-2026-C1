@@ -22,23 +22,25 @@ export class Cargando implements OnInit {
       return;
     }
 
-    this.http
-      .post(
-        `${this.apiUrl}/autenticacion/autorizar`,
-        {},
-        { headers: { Authorization: `Bearer ${this.token}` } },
-      )
-      .subscribe({
-        next: (usuario: any) => {
-          localStorage.setItem('usuario', JSON.stringify(usuario));
-          this.router.navigateByUrl('/publicaciones');
-        },
-        error: (error) => {
-          console.log(error);
-          localStorage.removeItem('token');
-          localStorage.removeItem('usuario');
-          this.router.navigateByUrl('/login');
-        },
-      });
+    setTimeout(() => {
+      this.http
+        .post(
+          `${this.apiUrl}/autenticacion/autorizar`,
+          {},
+          { headers: { Authorization: `Bearer ${this.token}` } },
+        )
+        .subscribe({
+          next: (usuario: any) => {
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            this.router.navigateByUrl('/publicaciones');
+          },
+          error: (error) => {
+            console.log(error);
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            this.router.navigateByUrl('/login');
+          },
+        });
+    }, 1500);
   }
 }
