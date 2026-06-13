@@ -1,1 +1,21 @@
 <router-outlet />
+
+@if (tokenExiste) {
+  <div class="contadorSesion">
+    <span>Tiempo de Sesión: </span>
+    <span class="contador"> {{ tiempoFormateado() }} </span>
+  </div>
+}
+
+@if (mostrarModal) {
+  <div class="modalSesion">
+    <div class="modal">
+      <h3>Sesión por vencerse!</h3>
+      <p>Tu sesión vence en 5 minutos, quieres extenderla?</p>
+      <div class="accionesModal">
+        <button class="boton" (click)="extenderSesion()">Extender</button>
+        <button class="botonCancelar" (click)="mostrarModal = false">Cancelar</button>
+      </div>
+    </div>
+  </div>
+}

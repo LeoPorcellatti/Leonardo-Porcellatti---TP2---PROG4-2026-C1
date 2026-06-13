@@ -1,0 +1,86 @@
+.modalSesion {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+  background: rgba(10, 30, 20, 0.95);
+  border: 1px solid rgba(57, 255, 138, 0.3);
+  border-left: 2px solid #39ff8a;
+  padding: 24px;
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(200, 230, 210, 0.75);
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal h3 {
+  color: #39ff8a;
+  margin: 0 0 12px 0;
+  letter-spacing: 2px;
+}
+
+.modal p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.accionesModal {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.boton {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.boton:hover {
+  border-color: rgb(57, 255, 138);
+  color: #39ff8a;
+  background: rgba(57, 255, 138, 0.05);
+}
+
+.botonCancelar {
+  background-color: #0d2140;
+  border: 1px solid rgba(255, 70, 70, 0.4);
+  color: rgba(255, 70, 70, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: block;
+  margin-left: auto;
+}
+
+.botonCancelar:hover {
+  border-color: rgb(255, 70, 70);
+  color: rgb(255, 70, 70);
+  background: rgba(255, 70, 70, 0.05);
+}
+
+.contadorSesion {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(57, 255, 138, 0.5);
+  z-index: 9998;
+}

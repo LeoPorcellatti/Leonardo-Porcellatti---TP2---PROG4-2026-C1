@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { SesionService } from '../../services/sesion-service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { environment } from '../../../environments/environment';
 export class Login {
   http = inject(HttpClient);
   router = inject(Router);
+  sesionService = inject(SesionService);
   apiUrl = environment.apiUrl;
 
   formulario = new FormGroup({
@@ -36,6 +38,7 @@ export class Login {
         if (a) {
           localStorage.setItem('token', a.token);
           localStorage.setItem('usuario', JSON.stringify(a.usuario));
+          this.sesionService.sesionIniciada.set(true);
           this.router.navigateByUrl('/');
         }
       });
