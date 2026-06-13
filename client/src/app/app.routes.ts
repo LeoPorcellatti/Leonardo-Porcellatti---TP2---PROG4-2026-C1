@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { estaLogueadoGuard } from './guards/esta-logueado-guard';
+import { noEstaLogueadoGuard } from './guards/no-esta-logueado-guard';
 
 export const routes: Routes = [
   {
@@ -7,19 +9,23 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [estaLogueadoGuard],
     loadComponent: () => import('./pantallas/login/login').then((a) => a.Login),
   },
   {
     path: 'mi-perfil',
+    canActivate: [noEstaLogueadoGuard],
     loadComponent: () => import('./pantallas/mi-perfil/mi-perfil').then((a) => a.MiPerfil),
   },
   {
     path: 'publicaciones',
+    canActivate: [noEstaLogueadoGuard],
     loadComponent: () =>
       import('./pantallas/publicaciones/publicaciones').then((a) => a.Publicaciones),
   },
   {
     path: 'publicaciones/:id',
+    canActivate: [noEstaLogueadoGuard],
     loadComponent: () =>
       import('./pantallas/publicacion-ampliada/publicacion-ampliada').then(
         (a) => a.PublicacionAmpliada,
@@ -27,6 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'registro',
+    canActivate: [estaLogueadoGuard],
     loadComponent: () => import('./pantallas/registro/registro').then((a) => a.Registro),
   },
 ];
