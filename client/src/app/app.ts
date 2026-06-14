@@ -17,8 +17,9 @@ export class App implements OnInit {
   apiUrl = environment.apiUrl;
 
   mostrarModal = false;
-  segundosRestantes = signal(6 * 60);
+  segundosRestantes = signal(2 * 60);
   intervalo!: ReturnType<typeof setInterval>;
+  tokenExiste = signal(!!localStorage.getItem('token'));
 
   tiempoFormateado = computed(() => {
     const s = this.segundosRestantes();
@@ -29,16 +30,15 @@ export class App implements OnInit {
     return `${m}:${seg}`;
   });
 
-  get tokenExiste() {
-    return !!localStorage.getItem('token');
-  }
-
   constructor() {
     effect(() => {
       if (this.sesionService.sesionIniciada()) {
+        this.tokenExiste.set(true);
         clearInterval(this.intervalo);
         this.iniciarContador();
-        this.sesionService.sesionIniciada.set(false);
+        setTimeout(() => {
+          this.sesionService.sesionIniciada.set(false);
+        }, 0);
       }
     });
   }
@@ -58,21 +58,18 @@ export class App implements OnInit {
       return;
     }
 
-    this.segundosRestantes.set(6 * 60);
+    this.segundosRestantes.set(2 * 60);
 
     this.intervalo = setInterval(() => {
       this.segundosRestantes.update((v) => Math.max(v - 1, 0));
 
-      if (this.segundosRestantes() === 5 * 60) {
+      if (this.segundosRestantes() === 1 * 60) {
         this.mostrarModal = true;
       }
 
       if (this.segundosRestantes() <= 0) {
         clearInterval(this.intervalo);
-        this.mostrarModal = false;
-        localStorage.removeItem('token');
-        localStorage.removeItem('usuario');
-        this.router.navigateByUrl('/login');
+        this.tokenExiste.set(false);
       }
     }, 1000);
   }

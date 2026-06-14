@@ -1,6 +1,6 @@
 <router-outlet />
 
-@if (tokenExiste) {
+@if (tokenExiste()) {
   <div class="contadorSesion">
     <span>Tiempo de Sesión: </span>
     <span class="contador"> {{ tiempoFormateado() }} </span>
