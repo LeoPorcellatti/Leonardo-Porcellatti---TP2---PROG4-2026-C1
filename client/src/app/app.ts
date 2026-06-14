@@ -58,7 +58,23 @@ export class App implements OnInit {
       return;
     }
 
-    this.segundosRestantes.set(2 * 60);
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const ahora = Math.floor(Date.now() / 1000);
+      const segundosReales = payload.exp - ahora;
+      console.log('exp:', payload.exp, 'ahora:', ahora, 'segundosReales:', segundosReales);
+
+      if (segundosReales <= 0) {
+        this.tokenExiste.set(false);
+        this.router.navigateByUrl('/login');
+        return;
+      }
+
+      this.segundosRestantes.set(segundosReales);
+    } catch (error) {
+      this.router.navigateByUrl('login');
+      return;
+    }
 
     this.intervalo = setInterval(() => {
       this.segundosRestantes.update((v) => Math.max(v - 1, 0));

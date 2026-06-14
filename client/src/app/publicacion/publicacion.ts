@@ -17,7 +17,6 @@ export class Publicacion {
 
   _publicacion = signal<any>(null);
 
-  token = localStorage.getItem('token');
   usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
 
   @Input() set publicacion(valor: any) {
@@ -29,11 +28,12 @@ export class Publicacion {
   }
 
   publicar() {
+    const token = localStorage.getItem('token');
     const peticion = this.http.post(
       `${this.apiUrl}/publicaciones`,
       {},
       {
-        headers: { Authorization: `Bearer ${this.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       },
     );
 
@@ -43,11 +43,12 @@ export class Publicacion {
   }
 
   darLike() {
+    const token = localStorage.getItem('token');
     const peticion = this.http.post(
       `${this.apiUrl}/publicaciones/${this.publicacion._id}`,
       {},
       {
-        headers: { Authorization: `Bearer ${this.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       },
     );
 
@@ -65,9 +66,10 @@ export class Publicacion {
   }
 
   quitarLike() {
+    const token = localStorage.getItem('token');
     const peticion = this.http.delete(
       `${this.apiUrl}/publicaciones/${this.publicacion._id}/dislike`,
-      { headers: { Authorization: `Bearer ${this.token}` } },
+      { headers: { Authorization: `Bearer ${token}` } },
     );
 
     peticion.subscribe({
@@ -84,8 +86,9 @@ export class Publicacion {
   }
 
   eliminar() {
+    const token = localStorage.getItem('token');
     const peticion = this.http.delete(`${this.apiUrl}/publicaciones/${this.publicacion._id}`, {
-      headers: { Authorization: `Bearer ${this.token}` },
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     peticion.subscribe({
