@@ -111,7 +111,7 @@ export class AutenticacionService {
       };
 
       const jwt = sign(payload, process.env.CLAVE_SUPERSECRETA!, {
-        expiresIn: '15m',
+        expiresIn: '2m',
       });
 
       const { password, ...usuarioSinPassword } = usuarioLogueado.toObject();
@@ -130,9 +130,8 @@ export class AutenticacionService {
       throw new UnauthorizedException();
     }
 
-    const token = auth.replace('Bearer ', '');
-
     try {
+      const token = auth.replace('Bearer ', '');
       const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
 
       const usuario = await this.UsuarioModel.findById(payload._id);
@@ -152,9 +151,8 @@ export class AutenticacionService {
   refrescar(auth: string) {
     if (!auth) throw new UnauthorizedException();
 
-    const token = auth.replace('Bearer ', '');
-
     try {
+      const token = auth.replace('Bearer ', '');
       const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
 
       const nuevoJwt = sign(

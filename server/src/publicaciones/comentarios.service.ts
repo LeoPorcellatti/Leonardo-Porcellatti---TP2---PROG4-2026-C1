@@ -19,6 +19,7 @@ import { Usuario } from '../usuarios/entities/usuario.entity';
 import { Comentario } from './entities/comentario.entity';
 import { CreateComentarioDto } from './dto/create-comentarios.dto';
 import { UpdateComentarioDto } from './dto/update-comentarios.dto';
+import { error } from 'console';
 
 @Injectable()
 export class ComentariosService {
@@ -33,8 +34,12 @@ export class ComentariosService {
       throw new UnauthorizedException();
     }
 
-    const token = auth.replace('Bearer ', '');
-    return verify(token, process.env.CLAVE_SUPERSECRETA!) as any;
+    try {
+      const token = auth.replace('Bearer ', '');
+      return verify(token, process.env.CLAVE_SUPERSECRETA!) as any;
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
   }
 
   async comentar(crearComentario: CreateComentarioDto, auth: string) {

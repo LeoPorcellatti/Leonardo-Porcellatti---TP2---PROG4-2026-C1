@@ -39,9 +39,6 @@ export class PublicacionesService {
 
     let urlImagen = '';
 
-    const token = auth.replace('Bearer ', '');
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
-
     if (imagenDePublicacion) {
       cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -67,6 +64,9 @@ export class PublicacionesService {
     }
 
     try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
       const publicacionCreada = await this.PublicacionModel.create({
         ...publicacion,
         usuario: payload._id,
@@ -150,11 +150,11 @@ export class PublicacionesService {
     if (!auth) {
       throw new UnauthorizedException();
     }
-    const token = auth.replace('Bearer ', '');
-
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
 
     try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
       const publicacion = await this.PublicacionModel.findById(id);
 
       if (!publicacion) {
@@ -177,10 +177,11 @@ export class PublicacionesService {
     if (!auth) {
       throw new UnauthorizedException();
     }
-    const token = auth.replace('Bearer ', '');
 
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
     try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
       const publicacion = await this.PublicacionModel.findById(id);
 
       if (!publicacion) {
@@ -203,11 +204,10 @@ export class PublicacionesService {
       throw new UnauthorizedException();
     }
 
-    const token = auth.replace('Bearer ', '');
-
-    const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
-
     try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
       const publicacion = await this.PublicacionModel.findById(id);
 
       if (!publicacion) {

@@ -47,6 +47,7 @@ export class AutenticacionController {
   }
 
   @Post('/refrescar')
+  @HttpCode(200)
   refrescar(@Headers('authorization') auth: string) {
     return this.autenticacionService.refrescar(auth);
   }
