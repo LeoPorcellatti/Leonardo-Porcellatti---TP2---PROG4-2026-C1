@@ -5,4 +5,5 @@ import { Injectable, signal } from '@angular/core';
 })
 export class SesionService {
   sesionIniciada = signal(false);
+  sesionCerrada = signal(false);
 }

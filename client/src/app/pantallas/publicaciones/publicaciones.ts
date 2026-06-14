@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { Publicacion } from '../../publicacion/publicacion';
+import { SesionService } from '../../services/sesion-service';
 
 @Component({
   selector: 'app-publicaciones',
@@ -14,6 +15,7 @@ import { Publicacion } from '../../publicacion/publicacion';
 export class Publicaciones implements OnInit {
   http = inject(HttpClient);
   router = inject(Router);
+  sesionService = inject(SesionService);
   apiUrl = environment.apiUrl;
 
   imagenDePublicacion: File | null = null;
@@ -26,17 +28,18 @@ export class Publicaciones implements OnInit {
   modalAbierto: boolean = false;
   nuevaPublicacion = { titulo: '', descripcion: '', imagenUrl: '' };
 
-  token = localStorage.getItem('token');
-
   cerrarSesion(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    this.sesionService.sesionCerrada.set(true);
     this.router.navigateByUrl('/login');
   }
 
   cargarPublicaciones() {
+    const token = localStorage.getItem('token');
     const peticion = this.http.get(
       `${this.apiUrl}/publicaciones?orden=${this.orden}&limite=${this.limite}&offset=${this.offset}`,
-      { headers: { Authorization: `Bearer ${this.token}` } },
+      { headers: { Authorization: `Bearer ${token}` } },
     );
     peticion.subscribe({
       next: (a: any) => {
@@ -90,6 +93,7 @@ export class Publicaciones implements OnInit {
     if (!this.nuevaPublicacion.titulo || !this.nuevaPublicacion.descripcion) {
       return;
     }
+    const token = localStorage.getItem('token');
 
     const formData = new FormData();
     formData.append('titulo', this.nuevaPublicacion.titulo);
@@ -100,7 +104,7 @@ export class Publicaciones implements OnInit {
 
     this.http
       .post(`${this.apiUrl}/publicaciones`, formData, {
-        headers: { Authorization: `Bearer ${this.token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .subscribe({
         next: () => {

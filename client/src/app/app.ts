@@ -40,6 +40,15 @@ export class App implements OnInit {
           this.sesionService.sesionIniciada.set(false);
         }, 0);
       }
+
+      if (this.sesionService.sesionCerrada()) {
+        clearInterval(this.intervalo);
+        this.tokenExiste.set(false);
+        this.segundosRestantes.set(0);
+        setTimeout(() => {
+          this.sesionService.sesionCerrada.set(false);
+        }, 0);
+      }
     });
   }
 
