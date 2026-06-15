@@ -92,7 +92,11 @@ export class AutenticacionService {
       });
 
       if (!usuarioLogueado) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('Usuario invalido');
+      }
+
+      if (!usuarioLogueado.activo) {
+        throw new UnauthorizedException('Usuario deshabilitado');
       }
 
       const passwordValidada = await compare(
@@ -101,7 +105,7 @@ export class AutenticacionService {
       );
 
       if (!passwordValidada) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('Password invalida');
       }
 
       const payload = {
@@ -120,6 +124,9 @@ export class AutenticacionService {
 
       return { token: jwt, usuario: usuarioSinPassword };
     } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
       console.log(error);
       throw new UnauthorizedException();
     }
