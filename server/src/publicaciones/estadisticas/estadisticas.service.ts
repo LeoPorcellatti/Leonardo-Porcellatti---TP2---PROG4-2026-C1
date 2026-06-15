@@ -7,11 +7,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { verify } from 'jsonwebtoken';
 import { Publicacion } from '../entities/publicacion.entity';
 import { Model } from 'mongoose';
+import { Comentario } from '../entities/comentario.entity';
 
 @Injectable()
 export class EstadisticasService {
   constructor(
     @InjectModel(Publicacion.name) private PublicacionModel: Model<Publicacion>,
+    @InjectModel(Comentario.name) private ComentarioModel: Model<Comentario>,
   ) {}
   private extraerPayload(auth: string) {
     if (!auth) {
@@ -34,6 +36,7 @@ export class EstadisticasService {
 
     return payload;
   }
+
   async publicacionesPorUsuario(desde: string, hasta: string, auth: string) {
     this.verificarAdmin(auth);
 
@@ -53,6 +56,59 @@ export class EstadisticasService {
       {
         $group: {
           _id: '$usuario',
+          cantidad: { $sum: 1 },
+        },
+      },
+    ]);
+    console.log('resultado:', resultado);
+    return resultado;
+  }
+
+  async comentariosPorFechas(desde: string, hasta: string, auth: string) {
+    this.verificarAdmin(auth);
+    const fechaHasta = new Date(hasta);
+    fechaHasta.setUTCHours(23, 59, 59, 999);
+
+    const resultado = await this.ComentarioModel.aggregate([
+      {
+        $match: {
+          activo: true,
+          creadoEn: {
+            $gte: new Date(desde),
+            $lte: fechaHasta,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$usuario',
+          cantidad: { $sum: 1 },
+        },
+      },
+    ]);
+    console.log('resultado:', resultado);
+    return resultado;
+  }
+
+  async comentariosPorPublicacion(desde: string, hasta: string, auth: string) {
+    this.verificarAdmin(auth);
+
+    const fechaHasta = new Date(hasta);
+    fechaHasta.setUTCHours(23, 59, 59, 999);
+
+    const resultado = await this.ComentarioModel.aggregate([
+      {
+        $match: {
+          activo: true,
+          creadoEn: {
+            $gte: new Date(desde),
+            $lte: fechaHasta,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$publicacion',
           cantidad: { $sum: 1 },
         },
       },

@@ -14,4 +14,26 @@ export class EstadisticasController {
   ) {
     return this.estadisticasService.publicacionesPorUsuario(desde, hasta, auth);
   }
+
+  @Get('comentarios-por-fecha')
+  comentariosPorFechas(
+    @Query('desde') desde: string,
+    @Query('hasta') hasta: string,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.estadisticasService.comentariosPorFechas(desde, hasta, auth);
+  }
+
+  @Get('comentarios-por-publicacion')
+  comentariosPorPublicacion(
+    @Query('desde') desde: string,
+    @Query('hasta') hasta: string,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.estadisticasService.comentariosPorPublicacion(
+      desde,
+      hasta,
+      auth,
+    );
+  }
 }
