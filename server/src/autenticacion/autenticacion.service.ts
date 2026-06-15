@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -108,7 +109,7 @@ export class AutenticacionService {
       }
 
       if (!usuarioLogueado.activo) {
-        throw new UnauthorizedException('Usuario deshabilitado');
+        throw new ForbiddenException('Usuario deshabilitado');
       }
 
       const passwordValidada = await compare(
@@ -136,7 +137,10 @@ export class AutenticacionService {
 
       return { token: jwt, usuario: usuarioSinPassword };
     } catch (error) {
-      if (error instanceof UnauthorizedException) {
+      if (
+        error instanceof UnauthorizedException ||
+        error instanceof ForbiddenException
+      ) {
         throw error;
       }
       console.log(error);
