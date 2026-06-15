@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { estaLogueadoGuard } from './guards/esta-logueado-guard';
 import { noEstaLogueadoGuard } from './guards/no-esta-logueado-guard';
+import { usuarioEsAdminGuard } from './guards/usuario-es-admin-guard';
 
 export const routes: Routes = [
   {
@@ -35,5 +36,10 @@ export const routes: Routes = [
     path: 'registro',
     canActivate: [estaLogueadoGuard],
     loadComponent: () => import('./pantallas/registro/registro').then((a) => a.Registro),
+  },
+  {
+    path: 'dashboard',
+    canActivate: [usuarioEsAdminGuard],
+    loadComponent: () => import('./pantallas/dashboard/dashboard').then((a) => a.Dashboard),
   },
 ];

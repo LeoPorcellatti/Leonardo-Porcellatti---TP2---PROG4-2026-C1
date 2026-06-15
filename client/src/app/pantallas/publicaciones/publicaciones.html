@@ -5,6 +5,11 @@
       <span class="slogan"> // La nostalgía nos guía._ ></span>
     </div>
     <div class="navAcciones">
+      @if (usuario.perfil === 'administrador') {
+        <p>*</p>
+        <button class="boton" routerLink="/dashboard">DASHBOARD ADMIN</button>
+        <p>*</p>
+      }
       <button class="boton" routerLink="/mi-perfil">Mi Perfil</button>
       <button class="boton" (click)="abrirModal()">Nueva publicación</button>
       <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>

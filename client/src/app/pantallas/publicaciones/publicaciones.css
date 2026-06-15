@@ -12,6 +12,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #39ff8a;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 1);
 }
 
 .presentacion {

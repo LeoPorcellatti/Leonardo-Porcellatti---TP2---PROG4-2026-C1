@@ -21,6 +21,7 @@ export class Publicaciones implements OnInit {
   imagenDePublicacion: File | null = null;
 
   publicaciones: WritableSignal<any[]> = signal([]);
+  usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
   orden: string = 'fecha';
   limite: number = 5;
   offset: number = 0;
