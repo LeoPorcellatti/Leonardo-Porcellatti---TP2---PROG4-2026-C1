@@ -7,6 +7,7 @@ import { Usuario, UsuarioSchema } from '../usuarios/entities/usuario.entity';
 import { Comentario, ComentarioSchema } from './entities/comentario.entity';
 import { ComentariosController } from './comentarios.controller';
 import { ComentariosService } from './comentarios.service';
+import { EstadisticasModule } from './estadisticas/estadisticas.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ComentariosService } from './comentarios.service';
       { name: Usuario.name, schema: UsuarioSchema },
       { name: Comentario.name, schema: ComentarioSchema },
     ]),
+    EstadisticasModule,
   ],
   controllers: [PublicacionesController, ComentariosController],
   providers: [PublicacionesService, ComentariosService],
