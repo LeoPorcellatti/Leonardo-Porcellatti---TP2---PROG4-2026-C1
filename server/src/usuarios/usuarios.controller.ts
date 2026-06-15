@@ -11,6 +11,7 @@ import {
   Headers,
   UseInterceptors,
   UploadedFile,
+  Head,
 } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -39,5 +40,13 @@ export class UsuariosController {
     @UploadedFile() imagenDePerfil: Express.Multer.File,
   ) {
     return this.usuariosService.crearUsuario(usuario, auth, imagenDePerfil);
+  }
+
+  @Delete(':id')
+  deshabilitarUsuario(
+    @Param('id') id: string,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.usuariosService.deshabilitarUsuario(id, auth);
   }
 }

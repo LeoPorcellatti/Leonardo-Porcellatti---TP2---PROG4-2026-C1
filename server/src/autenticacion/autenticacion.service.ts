@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -31,6 +32,17 @@ export class AutenticacionService {
     imagenDePerfil?: Express.Multer.File,
   ) {
     try {
+      const usuarioExiste = await this.UsuarioModel.findOne({
+        $or: [
+          { email: usuario.email },
+          { nombreDeUsuario: usuario.nombreDeUsuario },
+        ],
+      });
+
+      if (usuarioExiste) {
+        throw new BadRequestException();
+      }
+
       let urlImagen = process.env.IMAGEN_PERFIL_DEFAULT!;
 
       if (imagenDePerfil) {

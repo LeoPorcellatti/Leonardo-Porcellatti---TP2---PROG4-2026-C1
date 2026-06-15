@@ -89,6 +89,17 @@ export class UsuariosService {
       }
 
       if (payload.perfil === 'administrador') {
+        const usuarioExiste = await this.UsuarioModel.findOne({
+          $or: [
+            { email: usuario.email },
+            { nombreDeUsuario: usuario.nombreDeUsuario },
+          ],
+        });
+
+        if (usuarioExiste) {
+          throw new BadRequestException('Usuario ya existe');
+        }
+
         cloudinary.config({
           cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
           api_key: process.env.CLOUDINARY_API_KEY,
@@ -132,6 +143,37 @@ export class UsuariosService {
         throw error;
       }
       console.log(error);
+      throw new UnauthorizedException();
+    }
+  }
+
+  async deshabilitarUsuario(id: string, auth: string) {
+    try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+      if (payload.perfil !== 'administrador') {
+        throw new UnauthorizedException();
+      }
+
+      if (payload.perfil === 'administrador') {
+        const usuarioDeshabilitado = await this.UsuarioModel.findById(id);
+
+        if (!usuarioDeshabilitado) {
+          throw new BadRequestException('Usuario inexistente');
+        }
+
+        await this.UsuarioModel.updateOne({ _id: id }, { activo: false });
+
+        return { message: 'Usuario deshabilitado' };
+      }
+    } catch (error) {
+      if (
+        error instanceof UnauthorizedException ||
+        error instanceof BadRequestException
+      ) {
+        throw error;
+      }
       throw new UnauthorizedException();
     }
   }
