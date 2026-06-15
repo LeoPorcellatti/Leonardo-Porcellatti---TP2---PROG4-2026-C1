@@ -27,7 +27,7 @@
       <span class="contadorLike">Likes: {{ publicacion.meGusta.length }}</span>
 
       <div class="eliminarPublicacion">
-        @if (publicacion.usuario === usuario._id) {
+        @if (publicacion.usuario === usuario._id || usuario.perfil === 'administrador') {
           <button class="botonEliminar" (click)="$event.stopPropagation(); eliminar()">
             Eliminar
           </button>
