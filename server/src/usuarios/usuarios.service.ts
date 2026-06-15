@@ -177,4 +177,35 @@ export class UsuariosService {
       throw new UnauthorizedException();
     }
   }
+
+  async rehabilitarUsuario(id: string, auth: string) {
+    try {
+      const token = auth.replace('Bearer ', '');
+      const payload: any = verify(token, process.env.CLAVE_SUPERSECRETA!);
+
+      if (payload.perfil !== 'administrador') {
+        throw new UnauthorizedException();
+      }
+
+      if (payload.perfil === 'administrador') {
+        const usuarioRehabilitado = await this.UsuarioModel.findById(id);
+
+        if (!usuarioRehabilitado) {
+          throw new BadRequestException('Usuario inexistente');
+        }
+
+        await this.UsuarioModel.updateOne({ _id: id }, { activo: true });
+
+        return { message: 'usuario rehabilitado' };
+      }
+    } catch (error) {
+      if (
+        error instanceof UnauthorizedException ||
+        error instanceof BadRequestException
+      ) {
+        throw error;
+      }
+      throw new UnauthorizedException();
+    }
+  }
 }

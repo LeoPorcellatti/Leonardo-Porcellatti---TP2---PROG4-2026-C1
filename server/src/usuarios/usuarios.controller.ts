@@ -42,6 +42,14 @@ export class UsuariosController {
     return this.usuariosService.crearUsuario(usuario, auth, imagenDePerfil);
   }
 
+  @Post(':id')
+  rehabilitarUsuario(
+    @Param('id') id: string,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.usuariosService.rehabilitarUsuario(id, auth);
+  }
+
   @Delete(':id')
   deshabilitarUsuario(
     @Param('id') id: string,
