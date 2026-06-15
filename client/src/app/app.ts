@@ -71,7 +71,6 @@ export class App implements OnInit {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const ahora = Math.floor(Date.now() / 1000);
       const segundosReales = payload.exp - ahora;
-      console.log('exp:', payload.exp, 'ahora:', ahora, 'segundosReales:', segundosReales);
 
       if (segundosReales <= 0) {
         this.tokenExiste.set(false);

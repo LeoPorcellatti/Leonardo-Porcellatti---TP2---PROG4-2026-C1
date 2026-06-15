@@ -6,6 +6,7 @@
     </div>
 
     <div class="navAcciones">
+      <button class="boton" routerLink="/dashboard">VOLVER</button>
       <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>
     </div>
   </div>
@@ -27,6 +28,7 @@
           <h2 class="modalTitulo">{{ tipoModal | tituloModal }}</h2>
           <button class="boton" (click)="cerrarModal()">X</button>
         </div>
+
         @if (tipoModal === 'listadoUsuarios') {
           <div class="listaUsuarios">
             @for (u of usuarios(); track u._id) {
@@ -39,6 +41,186 @@
               }
             }
           </div>
+        }
+
+        @if (tipoModal === 'crearUsuario') {
+          <form class="formulario" [formGroup]="formulario">
+            <div class="campo">
+              <input type="nombre" name="nombre" formControlName="nombre" placeholder="nombre" />
+              @if (
+                formulario.get('nombre')?.touched && formulario.get('nombre')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su nombre</small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="apellido"
+                name="apellido"
+                formControlName="apellido"
+                placeholder="apellido"
+              />
+              @if (
+                formulario.get('apellido')?.touched &&
+                formulario.get('apellido')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su apellido</small>
+              }
+            </div>
+            <div class="campo">
+              <input type="email" name="email" formControlName="email" placeholder="email" />
+              @if (
+                formulario.get('email')?.touched && formulario.get('email')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su email</small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="nombreDeUsuario"
+                name="nombreDeUsuario"
+                formControlName="nombreDeUsuario"
+                placeholder="nombre de usuario"
+              />
+              @if (
+                formulario.get('nombreDeUsuario')?.touched &&
+                formulario.get('nombreDeUsuario')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su nombre de usuario</small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="password"
+                name="password"
+                formControlName="password"
+                placeholder="password"
+              />
+              @if (
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su password</small>
+              } @else if (
+                formulario.get('password')?.touched &&
+                formulario.get('password')?.getError('passwordInvalida')
+              ) {
+                <small class="small-error"
+                  >La password debe tener al menos 8 caracteres, una mayúscula y un número</small
+                >
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="password"
+                name="repetirPassword"
+                formControlName="repetirPassword"
+                placeholder="repetir password"
+              />
+
+              @if (
+                formulario.get('repetirPassword')?.touched &&
+                formulario.get('repetirPassword')?.getError('required')
+              ) {
+                <small class="small-error">Repite tu password</small>
+              } @else if (
+                formulario.get('password')?.touched &&
+                formulario.get('repetirPassword')?.touched &&
+                formulario.get('password')?.value !== formulario.get('repetirPassword')?.value
+              ) {
+                <small class="small-error">Las password no coinciden</small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="date"
+                name="fechaDeNacimiento"
+                formControlName="fechaDeNacimiento"
+                placeholder="fecha de nacimiento"
+              />
+              @if (
+                formulario.get('fechaDeNacimiento')?.touched &&
+                formulario.get('fechaDeNacimiento')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su fecha de nacimiento</small>
+              } @else if (
+                formulario.get('fechaDeNacimiento')?.touched &&
+                formulario.get('fechaDeNacimiento')?.getError('edadFutura')
+              ) {
+                <small class="small-error">No puedes elegir fechas futuras</small>
+              } @else if (
+                formulario.get('fechaDeNacimiento')?.touched &&
+                formulario.get('fechaDeNacimiento')?.getError('edadMinimaRegistro')
+              ) {
+                <small class="small-error">Debés tener al menos 10 años para registrarte </small>
+              } @else if (
+                formulario.get('fechaDeNacimiento')?.touched &&
+                formulario.get('fechaDeNacimiento')?.getError('edadMaximaRegistro')
+              ) {
+                <small class="small-error">Debés tener máximo 99 años para registrarte </small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="descripcion"
+                name="descripcion"
+                formControlName="descripcion"
+                placeholder="descripcion"
+              />
+              @if (
+                formulario.get('descripcion')?.touched &&
+                formulario.get('descripcion')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese su descripcion</small>
+              }
+            </div>
+            <div class="campo">
+              <input
+                type="file"
+                name="imagenDePerfil"
+                (change)="capturarImagen($event)"
+                accept="image/*"
+                placeholder="imagen de perfil"
+              />
+              @if (imagenDePerfilError) {
+                <small class="small-error">Ingrese su imagen de perfil</small>
+              }
+            </div>
+            <div class="radioButtons">
+              <label class="radioLabel"> Perfil: </label>
+              <label class="radioLabel">
+                <input type="radio" formControlName="perfil" value="usuario" />
+                Usuario
+              </label>
+              <label class="radioLabel">
+                <input type="radio" formControlName="perfil" value="administrador" />
+                Administrador
+              </label>
+              @if (
+                formulario.get('perfil')?.touched && formulario.get('perfil')?.getError('required')
+              ) {
+                <small class="small-error">Ingrese el tipo de perfil</small>
+              }
+            </div>
+
+            <button
+              class="boton"
+              (click)="
+                crearUsuario(
+                  formulario.value.nombre!,
+                  formulario.value.apellido!,
+                  formulario.value.email!,
+                  formulario.value.nombreDeUsuario!,
+                  formulario.value.password!,
+                  formulario.value.fechaDeNacimiento!,
+                  formulario.value.descripcion!,
+                  formulario.value.perfil!
+                )
+              "
+            >
+              REGISTRAR
+            </button>
+          </form>
         }
       </div>
     </div>

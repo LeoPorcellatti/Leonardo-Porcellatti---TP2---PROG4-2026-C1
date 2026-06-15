@@ -145,3 +145,52 @@
     0 0 8px rgba(57, 255, 138, 1),
     0 10px 25px rgba(0, 0, 0, 0.35);
 }
+
+.campo input {
+  font-family: 'Share Tech Mono', monospace;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 5px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(200, 230, 210, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.campo input:focus {
+  background: rgba(11, 32, 33, 0.35);
+}
+
+.radioButtons {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 12px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(200, 230, 210, 0.75);
+  cursor: pointer;
+}
+
+.radioLabel input[type='radio'] {
+  width: auto;
+  margin: 0;
+
+  accent-color: rgba(57, 255, 138);
+  cursor: pointer;
+}
+
+.small-error {
+  color: rgb(57, 255, 138);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+  text-align: left;
+  margin-bottom: 2px;
+}
