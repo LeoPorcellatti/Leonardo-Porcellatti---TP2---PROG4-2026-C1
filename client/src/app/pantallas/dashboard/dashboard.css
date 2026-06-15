@@ -1,0 +1,86 @@
+.contenedorDashboard {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(57, 255, 138, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #39ff8a;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 1);
+}
+
+.presentacion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  font-size: 22px;
+  color: #39ff8a;
+  letter-spacing: 2px;
+}
+
+.slogan {
+  display: block;
+  font-size: 12px;
+  color: rgba(57, 255, 138, 0.4);
+  margin-bottom: 16px;
+}
+
+.navAcciones {
+  display: flex;
+  gap: 6px;
+}
+
+.contenedorNavegacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.rutas {
+  width: 450px;
+  background: rgba(57, 58, 65, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px;
+  margin-bottom: 5px;
+}
+
+.admin {
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(57, 255, 138, 0.75);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.boton {
+  background-color: #0d2140;
+  border: 1px solid rgba(74, 179, 244, 0.3);
+  color: rgba(74, 179, 244, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: block;
+  margin-bottom: 20px;
+}
+.boton:hover {
+  border-color: rgb(57, 255, 138);
+  color: #39ff8a;
+  background: rgb(57, 255, 138, 0.05);
+}

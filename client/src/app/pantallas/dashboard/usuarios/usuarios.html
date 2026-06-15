@@ -1,1 +1,46 @@
-<p>usuarios works!</p>
+<div class="contenedorDashboard">
+  <div class="navbar">
+    <div class="presentacion">
+      <span class="logo">DEAD GAME EXPLORER</span>
+      <span class="slogan"> // La nostalgía nos guía._ ></span>
+    </div>
+
+    <div class="navAcciones">
+      <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>
+    </div>
+  </div>
+
+  <div class="contenedorAcciones">
+    <div class="acciones">
+      <button class="boton" (click)="abrirModal('listadoUsuarios')">LISTADO USUARIOS</button>
+      <button class="boton" (click)="abrirModal('crearUsuario')">CREAR USUARIO</button>
+      <button class="boton" (click)="abrirModal('habilitarDeshabilitarUsuario')">
+        HABILITAR/DESHABILITAR USUARIO
+      </button>
+    </div>
+  </div>
+
+  @if (modalAbierto) {
+    <div class="modalUsuarios">
+      <div class="modal">
+        <div class="navbarModal">
+          <h2 class="modalTitulo">{{ tipoModal | tituloModal }}</h2>
+          <button class="boton" (click)="cerrarModal()">X</button>
+        </div>
+        @if (tipoModal === 'listadoUsuarios') {
+          <div class="listaUsuarios">
+            @for (u of usuarios(); track u._id) {
+              @if (u.activo) {
+                <div class="usuario">
+                  <img [src]="u.imagenDePerfil" alt="imagen de perfil" />
+                  <p class="campo">User: {{ u.nombreDeUsuario }}</p>
+                  <p class="campo">Email: {{ u.email }}</p>
+                </div>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

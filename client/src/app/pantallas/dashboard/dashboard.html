@@ -1,1 +1,19 @@
-<p>dashboard works!</p>
+<div class="contenedorDashboard">
+  <div class="navbar">
+    <div class="presentacion">
+      <span class="logo">DEAD GAME EXPLORER</span>
+      <span class="slogan"> // La nostalgía nos guía._ ></span>
+    </div>
+
+    <div class="navAcciones"></div>
+  </div>
+
+  <div class="contenedorNavegacion">
+    <div class="rutas">
+      <p class="admin">{{ usuario.nombreDeUsuario }}</p>
+      <button class="boton" routerLink="/usuarios">USUARIOS</button>
+      <button class="boton" routerLink="/estadisticas">ESTADISTICAS</button>
+      <button class="boton" (click)="cerrarSesion()">Cerrar Sesion</button>
+    </div>
+  </div>
+</div>
