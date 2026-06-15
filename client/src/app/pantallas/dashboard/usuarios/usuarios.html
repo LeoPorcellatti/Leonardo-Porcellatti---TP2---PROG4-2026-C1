@@ -222,6 +222,25 @@
             </button>
           </form>
         }
+
+        @if (tipoModal === 'habilitarDeshabilitarUsuario') {
+          <div class="listaUsuarios">
+            @for (u of usuarios(); track u._id) {
+              <div class="usuario">
+                <img [src]="u.imagenDePerfil" alt="imagen de perfil" />
+                <p class="campo">User: {{ u.nombreDeUsuario }}</p>
+                <p class="campo">Email: {{ u.email }}</p>
+                @if (u.activo) {
+                  <button class="botonDeshabilitar" (click)="cambiarEstado(u._id, false)">
+                    DESHABILITAR
+                  </button>
+                } @else {
+                  <button class="boton" (click)="cambiarEstado(u._id, true)">HABILITAR</button>
+                }
+              </div>
+            }
+          </div>
+        }
       </div>
     </div>
   }

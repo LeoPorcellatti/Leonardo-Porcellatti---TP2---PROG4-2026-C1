@@ -59,6 +59,10 @@ export class Usuarios {
     if (tipo === 'crearUsuario') {
       this.formulario.reset();
     }
+
+    if (tipo === 'habilitarDeshabilitarUsuario') {
+      this.cargarUsuarios();
+    }
   }
 
   cerrarModal() {
@@ -137,6 +141,48 @@ export class Usuarios {
         console.log(error);
       },
     });
+  }
+
+  cambiarEstado(id: string, activo: boolean) {
+    const token = localStorage.getItem('token');
+
+    if (!activo) {
+      const peticion = this.http.delete(`${this.apiUrl}/usuarios/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      peticion.subscribe({
+        next: (a: any) => {
+          this.cargarUsuarios();
+
+          return;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
+
+    if (activo) {
+      const peticion = this.http.post(
+        `${this.apiUrl}/usuarios/${id}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      peticion.subscribe({
+        next: (a: any) => {
+          this.cargarUsuarios();
+
+          return;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
   }
 
   cerrarSesion(): void {

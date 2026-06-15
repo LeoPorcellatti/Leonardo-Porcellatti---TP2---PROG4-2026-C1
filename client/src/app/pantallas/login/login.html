@@ -35,4 +35,14 @@
       <button class="boton" routerLink="/registro">REGISTRATE</button>
     </div>
   </div>
+
+  @if (mostrarModalUsuarioDeshabilitado === true) {
+    <div class="modalUsuarioDeshabilitado">
+      <div class="modal">
+        <p class="modalTitulo">USUARIO DESHABILITADO</p>
+        <p class="modalMensaje">Su usuario se encuentra deshabilitado temporalmente</p>
+        <button class="botonModal" (click)="cerrarModal()">X</button>
+      </div>
+    </div>
+  }
 </div>

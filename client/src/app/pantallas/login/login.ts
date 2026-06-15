@@ -22,29 +22,38 @@ export class Login {
     password: new FormControl('', Validators.required),
   });
 
+  mostrarModalUsuarioDeshabilitado = false;
+
   login(metodoIngreso: string, password: string) {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
       return;
     }
 
-    try {
-      const peticion = this.http.post(`${this.apiUrl}/autenticacion/login`, {
-        metodoIngreso: metodoIngreso,
-        password: password,
-      });
+    const peticion = this.http.post(`${this.apiUrl}/autenticacion/login`, {
+      metodoIngreso: metodoIngreso,
+      password: password,
+    });
 
-      peticion.subscribe((a: any) => {
-        if (a) {
-          localStorage.setItem('token', a.token);
-          localStorage.setItem('usuario', JSON.stringify(a.usuario));
-          this.sesionService.sesionIniciada.set(true);
-          this.router.navigateByUrl('/');
+    peticion.subscribe({
+      next: (a: any) => {
+        localStorage.setItem('token', a.token);
+        localStorage.setItem('usuario', JSON.stringify(a.usuario));
+
+        this.sesionService.sesionIniciada.set(true);
+        this.router.navigateByUrl('/');
+      },
+      error: (error) => {
+        if (error.status === 403 && error.error.message === 'Usuario deshabilitado') {
+          this.mostrarModalUsuarioDeshabilitado = true;
+          this.formulario.reset();
+          return;
         }
-      });
-    } catch (error) {
-      console.log(error);
-      return;
-    }
+      },
+    });
+  }
+
+  cerrarModal() {
+    this.mostrarModalUsuarioDeshabilitado = false;
   }
 }

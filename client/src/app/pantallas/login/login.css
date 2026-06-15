@@ -77,3 +77,54 @@
   background: #0a2818;
   color: rgb(57, 255, 138);
 }
+
+.modalUsuarioDeshabilitado {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  width: 420px;
+  background: rgba(57, 58, 65, 0.95);
+  border: 1px solid rgba(57, 255, 138, 0.25);
+  border-radius: 18px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modalTitulo {
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(57, 255, 138);
+  font-size: 22px;
+  margin-bottom: 18px;
+  text-shadow: 0 0 8px rgba(57, 255, 138, 0.6);
+}
+
+.modalMensaje {
+  font-family: 'Share Tech Mono', monospace;
+  color: rgba(200, 230, 210, 0.8);
+  line-height: 2;
+  margin-bottom: 25px;
+}
+
+.botonModal {
+  font-family: 'Share Tech Mono', monospace;
+  padding: 10px 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(57, 255, 138);
+  background-color: #0d2140;
+  color: rgba(200, 230, 210, 0.8);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.botonModal:hover {
+  border-color: rgb(57, 255, 138);
+  color: #39ff8a;
+}

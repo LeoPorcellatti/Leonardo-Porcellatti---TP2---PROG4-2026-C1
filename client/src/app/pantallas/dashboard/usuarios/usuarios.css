@@ -81,9 +81,29 @@
   display: block;
   margin-bottom: 20px;
 }
+
+.botonDeshabilitar {
+  background-color: #0d2140;
+  border: 1px solid rgba(255, 70, 70, 0.4);
+  color: rgba(255, 70, 70, 0.7);
+  padding: 4px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: block;
+  margin-bottom: 20px;
+}
+
 .boton:hover {
   border-color: rgb(57, 255, 138);
   color: #39ff8a;
+  background: rgb(57, 255, 138, 0.05);
+}
+
+.botonDeshabilitar:hover {
+  border-color: rgb(255, 80, 57);
+  color: rgb(255, 80, 57);
   background: rgb(57, 255, 138, 0.05);
 }
 
