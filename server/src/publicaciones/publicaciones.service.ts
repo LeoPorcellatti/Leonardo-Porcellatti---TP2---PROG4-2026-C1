@@ -161,13 +161,21 @@ export class PublicacionesService {
         throw new UnauthorizedException();
       }
 
-      if (publicacion.usuario.toString() !== payload._id.toString()) {
+      const usuarioOriginal =
+        publicacion.usuario.toString() === payload._id.toString();
+      const usuarioAdmin = payload.perfil === 'administrador';
+
+      if (!usuarioOriginal && !usuarioAdmin) {
         throw new UnauthorizedException();
       }
 
       await this.PublicacionModel.updateOne({ _id: id }, { activo: false });
-      return { message: 'Publicación borrada' };
+
+      return { message: 'Publicacion borrada' };
     } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
       console.log(error);
       throw new UnauthorizedException();
     }
