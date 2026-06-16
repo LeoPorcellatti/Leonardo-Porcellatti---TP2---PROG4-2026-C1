@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { TituloModalPipe } from '../../../pipes/titulo-modal-pipe';
 import { FormsModule } from '@angular/forms';
 import { PublicacionesPorUsuario } from '../../../interfaces/publicacionesPorUsuario';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-estadisticas',
@@ -29,6 +30,8 @@ export class Estadisticas implements OnInit {
 
   desde = '';
   hasta = '';
+
+  graficoPublicaciones: Chart | null = null;
 
   abrirModal(tipo: string) {
     this.tipoModal = tipo;
@@ -89,6 +92,8 @@ export class Estadisticas implements OnInit {
         console.log(labels);
         console.log(valores);
 
+        this.crearGraficoPublicacionesUsuarios(labels, valores);
+
         this.publicacionesUsuarios.set(data);
       },
       error: (error) => {
@@ -111,5 +116,28 @@ export class Estadisticas implements OnInit {
 
   ngOnInit(): void {
     this.cargarUsuarios();
+  }
+
+  crearGraficoPublicacionesUsuarios(labels: string[], valores: number[]) {
+    if (this.graficoPublicaciones) {
+      this.graficoPublicaciones.destroy();
+    }
+
+    this.graficoPublicaciones = new Chart('graficoPublicaciones', {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Cantidad de publicaciones',
+            data: valores,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
   }
 }
