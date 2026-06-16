@@ -88,7 +88,7 @@
   background: rgb(57, 255, 138, 0.05);
 }
 
-.modalUsuarios {
+.modalEstadisticas {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.7);
@@ -113,7 +113,40 @@
   margin: 0 0 16px 0;
 }
 
-canvas {
-  width: 100% !important;
-  height: 400px !important;
+.filtros {
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filtros date {
+  background: #0d1a2e;
+  border: 1px solid rgba(57, 255, 138, 0.2);
+}
+
+#graficoPublicaciones {
+  max-width: 900px;
+  height: 400px;
+}
+
+.contenedorGrafico {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+input[type='date'] {
+  background: #0d2140;
+  border: 1px solid rgba(57, 255, 138, 0.3);
+  color: #39ff8a;
+  padding: 6px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
+}
+
+input[type='date']:focus {
+  outline: none;
+  border-color: #39ff8a;
+  box-shadow: 0 0 10px rgba(57, 255, 138, 0.3);
 }

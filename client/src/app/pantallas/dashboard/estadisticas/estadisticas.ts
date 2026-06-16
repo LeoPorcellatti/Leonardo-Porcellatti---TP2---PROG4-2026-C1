@@ -131,6 +131,10 @@ export class Estadisticas implements OnInit {
           {
             label: 'Cantidad de publicaciones',
             data: valores,
+
+            backgroundColor: 'rgba(57, 255, 138, 0.5)',
+            borderColor: '#39ff8a',
+            borderWidth: 2,
           },
         ],
       },

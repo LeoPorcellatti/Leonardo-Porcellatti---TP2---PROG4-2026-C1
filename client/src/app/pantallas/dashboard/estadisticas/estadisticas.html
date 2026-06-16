@@ -29,20 +29,24 @@
         <div class="navbarModal">
           <h2 class="modalTitulo">{{ tipoModal | tituloModal }}</h2>
           <button class="boton" (click)="cerrarModal()">X</button>
+        </div>
 
-          @if (tipoModal === 'publicacionPorUsuario') {
+        @if (tipoModal === 'publicacionPorUsuario') {
+          <div class="contenidoModal">
             <div class="filtros">
-              <input type="date" [(ngModel)]="desde" />
-              <input type="date" [(ngModel)]="hasta" />
+              <input type="date" [(ngModel)]="desde" placeholder="Desde" />
+              <input type="date" [(ngModel)]="hasta" placeholder="Hasta" />
             </div>
             <div class="consulta">
               <button class="boton" (click)="publicacionesPorUsuario(desde, hasta)">
                 CONSULTAR
               </button>
             </div>
-            <canvas id="graficoPublicaciones"></canvas>
-          }
-        </div>
+            <div class="contenedorGrafico">
+              <canvas id="graficoPublicaciones"></canvas>
+            </div>
+          </div>
+        }
       </div>
     </div>
   }
