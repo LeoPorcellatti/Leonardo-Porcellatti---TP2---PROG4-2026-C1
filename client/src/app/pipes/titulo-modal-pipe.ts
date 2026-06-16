@@ -15,6 +15,15 @@ export class TituloModalPipe implements PipeTransform {
       case 'habilitarDeshabilitarUsuario':
         return 'Habilitar / Deshabilitar usuario';
 
+      case 'publicacionPorUsuario':
+        return 'Publicaciones por Usuario';
+
+      case 'comentariosTotales':
+        return 'Comentarios por fechas';
+
+      case 'comentariosPorPublicacion':
+        return 'Comentarios por Publicacion';
+
       default:
         return 'Modal';
     }

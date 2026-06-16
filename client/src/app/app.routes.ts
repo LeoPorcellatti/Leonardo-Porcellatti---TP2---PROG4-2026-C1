@@ -47,4 +47,10 @@ export const routes: Routes = [
     canActivate: [usuarioEsAdminGuard],
     loadComponent: () => import('./pantallas/dashboard/usuarios/usuarios').then((a) => a.Usuarios),
   },
+  {
+    path: 'estadisticas',
+    canActivate: [usuarioEsAdminGuard],
+    loadComponent: () =>
+      import('./pantallas/dashboard/estadisticas/estadisticas').then((a) => a.Estadisticas),
+  },
 ];

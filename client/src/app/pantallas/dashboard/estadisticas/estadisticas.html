@@ -1,0 +1,48 @@
+<div class="contenedorDashboard">
+  <div class="navbar">
+    <div class="presentacion">
+      <span class="logo">DEAD GAME EXPLORER</span>
+      <span class="slogan"> // La nostalgía nos guía._ ></span>
+    </div>
+
+    <div class="navAcciones">
+      <button class="boton" routerLink="/dashboard">VOLVER</button>
+      <button class="boton" (click)="cerrarSesion()">CERRAR SESION</button>
+    </div>
+  </div>
+
+  <div class="contenedorAcciones">
+    <div class="acciones">
+      <button class="boton" (click)="abrirModal('publicacionPorUsuario')">
+        PUBLICACIONES POR USUARIO
+      </button>
+      <button class="boton" (click)="abrirModal('comentariosTotales')">COMENTARIOS TOTALES</button>
+      <button class="boton" (click)="abrirModal('comentariosPorPublicacion')">
+        COMENTARIOS POR PUBLICACION
+      </button>
+    </div>
+  </div>
+
+  @if (modalAbierto) {
+    <div class="modalEstadisticas">
+      <div class="modal">
+        <div class="navbarModal">
+          <h2 class="modalTitulo">{{ tipoModal | tituloModal }}</h2>
+          <button class="boton" (click)="cerrarModal()">X</button>
+
+          @if (tipoModal === 'publicacionPorUsuario') {
+            <div class="filtros">
+              <input type="date" [(ngModel)]="desde" />
+              <input type="date" [(ngModel)]="hasta" />
+            </div>
+            <div class="consulta">
+              <button class="boton" (click)="publicacionesPorUsuario(desde, hasta)">
+                CONSULTAR
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
