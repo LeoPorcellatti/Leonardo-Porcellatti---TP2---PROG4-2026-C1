@@ -150,3 +150,10 @@ input[type='date']:focus {
   border-color: #39ff8a;
   box-shadow: 0 0 10px rgba(57, 255, 138, 0.3);
 }
+
+.sinResultados {
+  text-align: center;
+  color: #ff6b6b;
+  margin-top: 20px;
+  font-family: 'Share Tech Mono', monospace;
+}

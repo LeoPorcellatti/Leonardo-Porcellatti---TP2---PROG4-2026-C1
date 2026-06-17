@@ -41,6 +41,9 @@
               <button class="boton" (click)="publicacionesPorUsuario(desde, hasta)">
                 CONSULTAR
               </button>
+              @if (sinResultados()) {
+                <p class="sinResultados">No se encontraron datos para mostrar</p>
+              }
             </div>
             <div class="contenedorGrafico">
               <canvas id="graficoPublicaciones"></canvas>
@@ -56,6 +59,9 @@
             </div>
             <div class="consulta">
               <button class="boton" (click)="comentariosPorFechas(desde, hasta)">CONSULTAR</button>
+              @if (sinResultados()) {
+                <p class="sinResultados">No se encontraron datos para mostrar</p>
+              }
             </div>
             <div class="contenedorGrafico">
               <canvas id="graficoComentarios"></canvas>
@@ -73,6 +79,9 @@
               <button class="boton" (click)="comentariosPorPublicacion(desde, hasta)">
                 CONSULTAR
               </button>
+              @if (sinResultados()) {
+                <p class="sinResultados">No se encontraron datos para mostrar</p>
+              }
             </div>
             <div class="contenedorGrafico">
               <canvas id="graficoComentariosPublicacion"></canvas>

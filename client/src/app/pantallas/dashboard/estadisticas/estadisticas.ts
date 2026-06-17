@@ -25,6 +25,7 @@ export class Estadisticas implements OnInit {
   datoPorFecha = signal<DatoPorFecha[]>([]);
   usuarios = signal<any[]>([]);
   publicaciones = signal<any[]>([]);
+  sinResultados = signal(false);
 
   modalAbierto: boolean = false;
   tipoModal = '';
@@ -44,6 +45,9 @@ export class Estadisticas implements OnInit {
   cerrarModal() {
     this.modalAbierto = false;
     this.tipoModal = '';
+
+    this.desde = '';
+    this.hasta = '';
   }
 
   cargarUsuarios() {
@@ -90,6 +94,18 @@ export class Estadisticas implements OnInit {
 
     peticion.subscribe({
       next: (data: DatoPorFecha[]) => {
+        if (data.length === 0) {
+          this.sinResultados.set(true);
+
+          if (this.graficoPublicaciones) {
+            this.graficoPublicaciones.destroy();
+          }
+
+          return;
+        }
+
+        this.sinResultados.set(false);
+
         const labels = data.map((publicacion) => {
           const usuario = this.usuarios().find((u) => u._id === publicacion._id);
 
@@ -119,6 +135,18 @@ export class Estadisticas implements OnInit {
 
     peticion.subscribe({
       next: (data: DatoPorFecha[]) => {
+        if (data.length === 0) {
+          this.sinResultados.set(true);
+
+          if (this.graficoComentarios) {
+            this.graficoComentarios.destroy();
+          }
+
+          return;
+        }
+
+        this.sinResultados.set(false);
+
         const labels = data.map((comentarios) => {
           const usuario = this.usuarios().find((u) => u._id === comentarios._id);
 
@@ -146,6 +174,18 @@ export class Estadisticas implements OnInit {
 
     peticion.subscribe({
       next: (data: DatoPorFecha[]) => {
+        if (data.length === 0) {
+          this.sinResultados.set(true);
+
+          if (this.graficoComentariosPorPublicacion) {
+            this.graficoComentariosPorPublicacion.destroy();
+          }
+
+          return;
+        }
+
+        this.sinResultados.set(false);
+
         const labels = data.map((comentarios) => {
           const publicacion = this.publicaciones().find((p) => p._id === comentarios._id);
 
