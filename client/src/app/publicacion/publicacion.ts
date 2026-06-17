@@ -4,10 +4,11 @@ import { environment } from '../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConfirmarAccion } from '../directivas/confirmar-accion';
+import { ImagenAmpliada } from '../directivas/imagen-ampliada';
 
 @Component({
   selector: 'app-publicacion',
-  imports: [DatePipe, ConfirmarAccion],
+  imports: [DatePipe, ConfirmarAccion, ImagenAmpliada],
   templateUrl: './publicacion.html',
   styleUrl: './publicacion.css',
 })
@@ -22,6 +23,9 @@ export class Publicacion {
 
   modalConfirmacion = false;
   mensajeConfirmacion = '';
+
+  modalImagen = false;
+  imagenPublicacion = '';
 
   @Input() set publicacion(valor: any) {
     this._publicacion.set(valor);
@@ -124,5 +128,15 @@ export class Publicacion {
   confirmarEliminacion() {
     this.eliminar();
     this.cerrarModalConfirmacion();
+  }
+
+  abrirModalImagen(src: string) {
+    this.imagenPublicacion = src;
+    this.modalImagen = true;
+  }
+
+  cerrarModalImagen() {
+    this.modalImagen = false;
+    this.imagenPublicacion = '';
   }
 }

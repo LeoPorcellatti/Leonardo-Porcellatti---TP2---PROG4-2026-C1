@@ -5,14 +5,33 @@
       <div class="publicacionCreacion">
         <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyyy' }} </span>
         <span class="publicacionUser"> {{ publicacion.usuarioNombre }} </span>
-        <img [src]="publicacion.usuarioImagen" alt="Imagen de perfil" />
+        <img [src]="publicacion.usuarioImagen" alt="Imagen de perfil" appImagenAmpliada />
       </div>
     </div>
 
     <div class="publicacionContenido">
       <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
       @if (publicacion.imagenUrl) {
-        <img class="publicacionImagen" [src]="publicacion.imagenUrl" alt="imagen de publicacion" />
+        <img
+          class="publicacionImagen"
+          [src]="publicacion.imagenUrl"
+          alt="imagen de publicacion"
+          (click)="$event.stopPropagation(); abrirModalImagen(publicacion.imagenUrl)"
+        />
+
+        @if (modalImagen) {
+          <div
+            class="modalContenedorImagen"
+            (click)="$event.stopPropagation(); cerrarModalImagen()"
+          >
+            <div class="modalImagen">
+              <div class="modalImagenAcciones">
+                <button class="botonEliminar" (click)="cerrarModalImagen()">X</button>
+              </div>
+              <img [src]="imagenPublicacion" alt="imagen ampliada" />
+            </div>
+          </div>
+        }
       }
     </div>
 
