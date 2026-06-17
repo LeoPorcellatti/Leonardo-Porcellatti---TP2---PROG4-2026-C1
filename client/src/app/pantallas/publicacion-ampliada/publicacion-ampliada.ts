@@ -4,10 +4,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FechaPublicacionPipe } from '../../pipes/fecha-publicacion-pipe';
 
 @Component({
   selector: 'app-publicacion-ampliada',
-  imports: [RouterLink, DatePipe, FormsModule],
+  imports: [RouterLink, DatePipe, FormsModule, FechaPublicacionPipe],
   templateUrl: './publicacion-ampliada.html',
   styleUrl: './publicacion-ampliada.css',
 })

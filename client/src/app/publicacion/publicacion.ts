@@ -5,10 +5,11 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConfirmarAccion } from '../directivas/confirmar-accion';
 import { ImagenAmpliada } from '../directivas/imagen-ampliada';
+import { FechaPublicacionPipe } from '../pipes/fecha-publicacion-pipe';
 
 @Component({
   selector: 'app-publicacion',
-  imports: [DatePipe, ConfirmarAccion, ImagenAmpliada],
+  imports: [DatePipe, ConfirmarAccion, ImagenAmpliada, FechaPublicacionPipe],
   templateUrl: './publicacion.html',
   styleUrl: './publicacion.css',
 })

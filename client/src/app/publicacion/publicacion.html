@@ -1,15 +1,15 @@
 @if (publicacion.activo) {
   <div class="publicacionCard" (click)="verPublicacion()">
     <div class="publicacionDatos">
-      <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
       <div class="publicacionCreacion">
-        <span class="publicacionFecha"> {{ publicacion.creadoEn | date: 'dd/MM/yyyy' }} </span>
+        <span class="publicacionFecha"> {{ publicacion.creadoEn | fechaPublicacion }} </span>
         <span class="publicacionUser"> {{ publicacion.usuarioNombre }} </span>
         <img [src]="publicacion.usuarioImagen" alt="Imagen de perfil" appImagenAmpliada />
       </div>
     </div>
 
     <div class="publicacionContenido">
+      <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
       <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
       @if (publicacion.imagenUrl) {
         <img
