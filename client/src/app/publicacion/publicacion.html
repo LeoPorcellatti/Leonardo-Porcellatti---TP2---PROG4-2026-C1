@@ -28,9 +28,36 @@
 
       <div class="eliminarPublicacion">
         @if (publicacion.usuario === usuario._id || usuario.perfil === 'administrador') {
-          <button class="botonEliminar" (click)="$event.stopPropagation(); eliminar()">
+          <button
+            class="botonEliminar"
+            (click)="$event.stopPropagation()"
+            appConfirmarAccion
+            mensaje="¿Eliminar publicacion?"
+            (accionConfirmada)="abrirModalConfirmacion($event)"
+          >
             Eliminar
           </button>
+          @if (modalConfirmacion) {
+            <div class="modalEliminacion">
+              <div class="modal">
+                <h3>{{ mensajeConfirmacion }}</h3>
+                <div class="modalAcciones">
+                  <button
+                    class="botonLike"
+                    (click)="$event.stopPropagation(); confirmarEliminacion()"
+                  >
+                    Confirmar
+                  </button>
+                  <button
+                    class="botonEliminar"
+                    (click)="$event.stopPropagation(); cerrarModalConfirmacion()"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
         }
       </div>
     </div>

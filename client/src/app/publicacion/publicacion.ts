@@ -3,10 +3,11 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ConfirmarAccion } from '../directivas/confirmar-accion';
 
 @Component({
   selector: 'app-publicacion',
-  imports: [DatePipe],
+  imports: [DatePipe, ConfirmarAccion],
   templateUrl: './publicacion.html',
   styleUrl: './publicacion.css',
 })
@@ -18,6 +19,9 @@ export class Publicacion {
   _publicacion = signal<any>(null);
 
   usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+
+  modalConfirmacion = false;
+  mensajeConfirmacion = '';
 
   @Input() set publicacion(valor: any) {
     this._publicacion.set(valor);
@@ -106,5 +110,19 @@ export class Publicacion {
 
   verPublicacion() {
     this.router.navigateByUrl(`/publicaciones/${this.publicacion._id}`);
+  }
+
+  abrirModalConfirmacion(mensaje: string) {
+    this.mensajeConfirmacion = mensaje;
+    this.modalConfirmacion = true;
+  }
+
+  cerrarModalConfirmacion() {
+    this.modalConfirmacion = false;
+  }
+
+  confirmarEliminacion() {
+    this.eliminar();
+    this.cerrarModalConfirmacion();
   }
 }
