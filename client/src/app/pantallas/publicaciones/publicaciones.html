@@ -50,7 +50,11 @@
           <input type="text" placeholder="Título" [(ngModel)]="nuevaPublicacion.titulo" />
         </div>
         <div class="campo">
-          <input type="text" placeholder="Descripción" [(ngModel)]="nuevaPublicacion.descripcion" />
+          <textarea
+            placeholder="Descripción"
+            [(ngModel)]="nuevaPublicacion.descripcion"
+            rows="6"
+          ></textarea>
         </div>
         <div class="campo">
           <input
