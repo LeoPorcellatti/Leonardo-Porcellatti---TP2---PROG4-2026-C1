@@ -5,10 +5,11 @@ import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { Publicacion } from '../../publicacion/publicacion';
 import { SesionService } from '../../services/sesion-service';
+import { PublicacionHover } from '../../directivas/publicacion-hover';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [FormsModule, RouterLink, Publicacion],
+  imports: [FormsModule, RouterLink, Publicacion, PublicacionHover],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css',
 })

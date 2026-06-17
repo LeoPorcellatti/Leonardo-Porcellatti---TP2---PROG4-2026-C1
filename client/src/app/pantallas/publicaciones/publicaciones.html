@@ -27,7 +27,9 @@
 
   <div class="listaPublicaciones">
     @for (p of publicaciones(); track p._id) {
-      <app-publicacion [publicacion]="p" />
+      <div class="p" appPublicacionHover>
+        <app-publicacion [publicacion]="p" />
+      </div>
     }
     @if (publicaciones().length === 0) {
       <p class="sinPublicaciones">// No se encontraron publicaciones</p>
