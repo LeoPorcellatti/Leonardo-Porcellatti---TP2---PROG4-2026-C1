@@ -47,6 +47,38 @@
             </div>
           </div>
         }
+
+        @if (tipoModal === 'comentariosTotales') {
+          <div class="contenidoModal">
+            <div class="filtros">
+              <input type="date" [(ngModel)]="desde" placeholder="Desde" />
+              <input type="date" [(ngModel)]="hasta" placeholder="Hasta" />
+            </div>
+            <div class="consulta">
+              <button class="boton" (click)="comentariosPorFechas(desde, hasta)">CONSULTAR</button>
+            </div>
+            <div class="contenedorGrafico">
+              <canvas id="graficoComentarios"></canvas>
+            </div>
+          </div>
+        }
+
+        @if (tipoModal === 'comentariosPorPublicacion') {
+          <div class="contenidoModal">
+            <div class="filtros">
+              <input type="date" [(ngModel)]="desde" placeholder="Desde" />
+              <input type="date" [(ngModel)]="hasta" placeholder="Hasta" />
+            </div>
+            <div class="consulta">
+              <button class="boton" (click)="comentariosPorPublicacion(desde, hasta)">
+                CONSULTAR
+              </button>
+            </div>
+            <div class="contenedorGrafico">
+              <canvas id="graficoComentariosPublicacion"></canvas>
+            </div>
+          </div>
+        }
       </div>
     </div>
   }
