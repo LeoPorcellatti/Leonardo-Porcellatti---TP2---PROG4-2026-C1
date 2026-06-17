@@ -7,10 +7,11 @@ import { TituloModalPipe } from '../../../pipes/titulo-modal-pipe';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { passwordValidator } from '../../../validators/passwordValidator';
 import { edadValidator } from '../../../validators/edadValidator';
+import { ConfirmarAccion } from '../../../directivas/confirmar-accion';
 
 @Component({
   selector: 'app-usuarios',
-  imports: [ReactiveFormsModule, RouterLink, TituloModalPipe],
+  imports: [ReactiveFormsModule, RouterLink, TituloModalPipe, ConfirmarAccion],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
@@ -24,7 +25,11 @@ export class Usuarios {
   usuarios: WritableSignal<any[]> = signal([]);
 
   modalAbierto: boolean = false;
+  modalConfirmacion = false;
   tipoModal = '';
+  mensajeConfirmacion = '';
+  usuarioAModificar = '';
+  estadoAModificar: boolean = false;
 
   imagenDePerfil: File | null = null;
   imagenDePerfilError: boolean = false;
@@ -65,9 +70,23 @@ export class Usuarios {
     }
   }
 
+  abrirModalConfirmacion(mensaje: string, id: string, estado: boolean) {
+    this.mensajeConfirmacion = mensaje;
+    this.usuarioAModificar = id;
+    this.estadoAModificar = estado;
+    this.modalConfirmacion = true;
+  }
+
   cerrarModal() {
     this.modalAbierto = false;
     this.tipoModal = '';
+  }
+
+  cerrarModalConfirmacion() {
+    this.modalConfirmacion = false;
+
+    this.usuarioAModificar = '';
+    this.estadoAModificar = false;
   }
 
   cargarUsuarios() {
@@ -183,6 +202,12 @@ export class Usuarios {
         },
       });
     }
+  }
+
+  confirmarCambioEstado() {
+    this.cambiarEstado(this.usuarioAModificar, this.estadoAModificar);
+
+    this.cerrarModalConfirmacion();
   }
 
   cerrarSesion(): void {

@@ -231,11 +231,37 @@
                 <p class="campo">User: {{ u.nombreDeUsuario }}</p>
                 <p class="campo">Email: {{ u.email }}</p>
                 @if (u.activo) {
-                  <button class="botonDeshabilitar" (click)="cambiarEstado(u._id, false)">
+                  <button
+                    class="botonDeshabilitar"
+                    appConfirmarAccion
+                    mensaje="¿Deshabilitar usaurio {{ u.nombreDeUsuario }}?"
+                    (accionConfirmada)="abrirModalConfirmacion($event, u._id, false)"
+                  >
                     DESHABILITAR
                   </button>
                 } @else {
-                  <button class="boton" (click)="cambiarEstado(u._id, true)">HABILITAR</button>
+                  <button
+                    class="boton"
+                    appConfirmarAccion
+                    mensaje="¿Habilitar usuario {{ u.nombreDeUsuario }}?"
+                    (accionConfirmada)="abrirModalConfirmacion($event, u._id, true)"
+                  >
+                    HABILITAR
+                  </button>
+                }
+
+                @if (modalConfirmacion) {
+                  <div class="modalConfirmacion">
+                    <div class="modalConfirmacionHijo">
+                      <h3>{{ mensajeConfirmacion }}</h3>
+                      <div class="modalAcciones">
+                        <button class="boton" (click)="confirmarCambioEstado()">Aceptar</button>
+                        <button class="botonDeshabilitar" (click)="cerrarModalConfirmacion()">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 }
               </div>
             }
