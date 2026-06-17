@@ -10,7 +10,7 @@
 
     <div class="publicacionContenido">
       <h3 class="publicacionTitulo">{{ publicacion.titulo }}</h3>
-      <p class="publicacionDescripcion">{{ publicacion.descripcion }}</p>
+      <p class="publicacionDescripcion">{{ publicacion.descripcion | verMas }}</p>
       @if (publicacion.imagenUrl) {
         <img
           class="publicacionImagen"

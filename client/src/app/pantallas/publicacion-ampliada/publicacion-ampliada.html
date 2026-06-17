@@ -57,7 +57,7 @@
               }
             }
 
-            <span class="comentarioFecha"> {{ c.creadoEn | date: 'dd/MM/yyyy' }} </span>
+            <span class="comentarioFecha"> {{ c.creadoEn | fechaPublicacion }} </span>
           </div>
         }
         @if (comentarios().length < totalComentarios()) {
