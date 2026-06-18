@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
+
 import { SesionService } from './services/sesion-service';
 
 @Component({
